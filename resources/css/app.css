@@ -1,0 +1,187 @@
+body {
+    margin: 0px;
+    background-color: rgb(230, 229, 229);
+    font-family: 'Montserrat', sans-serif;
+}
+.aboutHeader {
+    background-color: #1a233c;
+    width: 90%;
+    padding: 12px;
+    margin-left: 4%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 16pt;
+    color: rgb(255, 255, 255);
+}
+a {
+    /* margin-left: 5px; */
+    text-decoration: none;
+    color: white;
+}
+.mobileMenu {
+    display: none;
+}
+.mainMenu {
+    padding: 9px;
+}
+.mainMenu:hover {
+    background-color: #2b3246;
+}
+
+.dashboardHeader {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    padding: 12px 25px;
+    border-bottom: 1px solid rgb(185, 185, 185);
+    z-index: 1;
+}
+.dashboardHeaderLogo {
+    font-family: 'Rubik One', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    background: #2E2F45;
+    display: table;
+    color: white;
+    border-radius: 5px;
+    mix-blend-mode: multiply;
+    padding: 5px 10px;
+}
+.dashboardSidebar {
+    height: 100%;
+    width: 200px;
+    margin-top: 49px;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    border-right: 1px solid rgb(185, 185, 185);
+    padding-top: 10px;
+}
+.dashboardButton {
+    color: black;
+    width: 130px;
+    height: auto;
+    margin: 5px 20px;
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 14pt;
+}
+.dashboardButton:hover {
+    background-color: rgb(230, 229, 229);
+}
+.dashboardButton:active {
+    background-color: rgb(185, 185, 185);
+}
+.dashboardBody {
+    padding-left: 204px;
+    padding-top: 49px;
+}
+
+.wordContainer {
+    size: auto;
+    display:inline-block;
+}
+.wordCard {
+    width: 150px;
+    height: auto;
+    margin-left: 4px;
+    margin-top: 12px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    font-size: 16pt;
+    color: black;
+}
+
+.searchComponent {
+    width: 300px;
+    position: fixed;
+    top: 0px;
+    margin-left: 50%;
+    left: -150px;
+}
+.searchInput {
+    height: 25px;
+    width: 250px;
+    margin-top: 11px;
+}
+.searchButton {
+    height: 25px;
+    width: 40px;
+    margin-top: 8px;
+}
+
+.paginate {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+.pagination {
+    list-style-type: none;
+    display: flex;
+}
+.page-item {
+    padding: 5px;
+    background-color: rgb(185, 185, 185);
+    border: rgb(185, 185, 185) solid 1px;
+}
+
+.wordHead {
+    /* width: calc(100%-20px); */
+    width: max-content;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+    font-size: 30px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.scroll_container {
+    size: auto;
+    display: flex;
+    padding-bottom: 5px;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+
+    .card {
+        display: inline-block;
+        margin-left: 4px;
+        margin-top: 12px;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        font-size: 16pt;
+        color: black;
+    }
+
+}
+.scroll_container::-webkit-scrollbar {
+    width: 12px;               /* ширина scrollbar */
+    height: 8px;
+}
+.scroll_container::-webkit-scrollbar-track {
+    background: rgb(230, 229, 229);        /* цвет дорожки */
+}
+.scroll_container::-webkit-scrollbar-thumb {
+    background-color: white;    /* цвет плашки */
+    border-radius: 20px;       /* закругления плашки */
+}
+
+
+@media screen and (max-width: 600px) {
+    header {
+        padding: 3%;
+        margin-left: 2%;
+    }
+    .mainMenu {
+        display: none;
+    }
+    .mobileMenu {
+        display: inline-block;
+        float: right;
+    }
+}
