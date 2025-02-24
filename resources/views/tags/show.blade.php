@@ -28,13 +28,5 @@
                 </button>
             </form>
         @endif
-        @if($tag->words->count() > 9)
-            <form action="{{ route('transcriptiontest.index', ['tagId' => $tag, 'answer' => array()]) }}" method="POST">
-                @csrf
-                <button type="submit" class="submitButton">
-                    Пройти тест на написание слов
-                </button>
-            </form>
-        @endif
     </div>
 @endsection

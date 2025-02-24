@@ -41,16 +41,6 @@ Route::middleware('auth')->group(function() {
     });
 });
 
-Route::middleware('auth')->group(function() {
-    Route::prefix('transcriptiontest')->name('transcriptiontest.')->group(function() {
-        Route::post('/test', [App\Http\Controllers\TranscriptionTest\IndexController::class, 'index'])->name('index');
-        Route::get('/show/{test}/{index}', [App\Http\Controllers\TranscriptionTest\ShowController::class, 'index'])->name('show');
-        // Route::get('/list', [App\Http\Controllers\WordTest\ListController::class, 'index'])->name('list');
-        // Route::post('/check', [App\Http\Controllers\WordTest\CheckController::class, 'index'])->name('check');
-        // Route::get('/result/{test}', [App\Http\Controllers\WordTest\ResultController::class, 'index'])->name('result');
-    });
-});
-
 Route::prefix('search')->name('search.')->group(function() {
     Route::post('/', [App\Http\Controllers\Search\IndexController::class,'index'])->name('index');
 });
