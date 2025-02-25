@@ -6,9 +6,9 @@
 
 @section('content')
     @foreach ($words as $word)
-        <div class="wordContainer">
+        <div class="word-container">
             <a href="{{ route('word.show', ['word' => $word]) }}">
-                <div class="wordCard">
+                <div class="word-card">
                     <span>
                         {{ $word->word }}
                     </span>

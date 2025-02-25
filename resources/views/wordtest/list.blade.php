@@ -7,20 +7,20 @@
 @section('content')
     @if($tests->count() == 0)
         <div class="substrate" style="margin-top: 20%">
-            <div class="centerContainer">
+            <div class="center-container">
                 <h1>Данные не найдены</h1>
             </div>
         </div>
     @else
-        <div class="testCardContainer">
+        <div class="test-card-container">
             @foreach ($tests as $index => $test)
                     <a href="{{ route('wordtest.show', ['test' => $test, 'index' => 1]) }}">
-                        <div class="testCard">
-                            <div class="centerContainer">
-                                <div class="headTestCard">Тест №{{ $test->id }}</div>
+                        <div class="test-card">
+                            <div class="center-container">
+                                <div class="headtest-card">Тест №{{ $test->id }}</div>
                             </div>
                             @foreach($test->questions as $question)
-                                <div class="concretWordTestCard">
+                                <div class="concret-wordtest-card">
                                     @if($question->result == 2)
                                         🟢
                                     @elseif($question->result == 1)

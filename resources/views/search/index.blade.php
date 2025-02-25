@@ -10,7 +10,7 @@
 @if ($englishWords->count() == 0)
    Данные не найдены 
 @endif
-<div class="scroll_container">
+<div class="scroll-container">
     @foreach ($englishWords as $englishWord)
     <a href="{{ route('word.show', ['word' => $englishWord]) }}">
         <div class="card">
@@ -24,7 +24,7 @@
 @if ($russianWords->count() == 0)
    Данные не найдены 
 @endif
-<div class="scroll_container">
+<div class="scroll-container">
     @foreach ($russianWords as $russianWord)
         <div class="card">
             <div>{{ $russianWord->word }}</div>
@@ -36,7 +36,7 @@
 @if ($tags->count() == 0)
    Данные не найдены 
 @endif
-<div class="scroll_container">
+<div class="scroll-container">
     @foreach ($tags as $tag)
     <a href="{{ route('tags.index', ['tag' => $tag]) }}">
         <div class="card">

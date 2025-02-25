@@ -3,7 +3,7 @@ body {
     background-color: rgb(230, 229, 229);
     font-family: 'Montserrat', sans-serif;
 }
-.aboutHeader {
+.abou-header {
     background-color: #1a233c;
     width: 90%;
     padding: 12px;
@@ -18,17 +18,17 @@ a {
     text-decoration: none;
     color: white;
 }
-.mobileMenu {
+.mobile-menu {
     display: none;
 }
-.mainMenu {
+.main-menu {
     padding: 9px;
 }
-.mainMenu:hover {
+.main-menu:hover {
     background-color: #2b3246;
 }
 
-.dashboardHeader {
+.dashboard-header {
     width: 100%;
     height: auto;
     position: fixed;
@@ -37,7 +37,7 @@ a {
     border-bottom: 1px solid rgb(185, 185, 185);
     z-index: 1;
 }
-.dashboardHeaderLogo {
+.dashboard-header-logo {
     font-family: 'Rubik One', sans-serif;
     font-size: 18px;
     text-transform: uppercase;
@@ -48,7 +48,7 @@ a {
     mix-blend-mode: multiply;
     padding: 5px 10px;
 }
-.dashboardSidebar {
+.dashboard-sidebar {
     height: 100%;
     width: 200px;
     margin-top: 49px;
@@ -57,7 +57,7 @@ a {
     border-right: 1px solid rgb(185, 185, 185);
     padding-top: 10px;
 }
-.dashboardButton {
+.dashboard-button {
     color: black;
     width: 130px;
     height: auto;
@@ -67,22 +67,22 @@ a {
     display: inline-block;
     font-size: 14pt;
 }
-.dashboardButton:hover {
+.dashboard-button:hover {
     background-color: rgb(230, 229, 229);
 }
-.dashboardButton:active {
+.dashboard-button:active {
     background-color: rgb(185, 185, 185);
 }
-.dashboardBody {
+.dashboard-body {
     padding-left: 204px;
     padding-top: 49px;
 }
 
-.wordContainer {
+.word-container {
     size: auto;
     display:inline-block;
 }
-.wordCard {
+.word-card {
     width: 150px;
     height: auto;
     margin-left: 4px;
@@ -101,12 +101,12 @@ a {
     margin-left: 50%;
     left: -150px;
 }
-.searchInput {
+.search-input {
     height: 25px;
     width: 250px;
     margin-top: 11px;
 }
-.searchButton {
+.search-button {
     height: 25px;
     width: 40px;
     margin-top: 8px;
@@ -127,7 +127,7 @@ a {
     border: rgb(185, 185, 185) solid 1px;
 }
 
-.wordHead {
+.word-head {
     /* width: calc(100%-20px); */
     width: max-content;
     height: auto;
@@ -138,7 +138,7 @@ a {
     border-radius: 5px;
 }
 
-.scroll_container {
+.scroll-container {
     size: auto;
     display: flex;
     padding-bottom: 5px;
@@ -159,14 +159,14 @@ a {
     }
 
 }
-.scroll_container::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
     width: 12px;               /* ширина scrollbar */
     height: 8px;
 }
-.scroll_container::-webkit-scrollbar-track {
+.scroll-container::-webkit-scrollbar-track {
     background: rgb(230, 229, 229);        /* цвет дорожки */
 }
-.scroll_container::-webkit-scrollbar-thumb {
+.scroll-container::-webkit-scrollbar-thumb {
     background-color: white;    /* цвет плашки */
     border-radius: 20px;       /* закругления плашки */
 }
@@ -177,10 +177,10 @@ a {
         padding: 3%;
         margin-left: 2%;
     }
-    .mainMenu {
+    .main-menu {
         display: none;
     }
-    .mobileMenu {
+    .mobile-menu {
         display: inline-block;
         float: right;
     }

@@ -6,9 +6,9 @@
 
 @section('content')
 <div class="print">
-    <div class="testContainer">
+    <div class="test-container">
         <div class="head">Баллы: {{ $trueAnswerCount }}</div>
-        <div class="answerContainer">
+        <div class="answer-container">
             <table class="table">
                 <tr>
                     <th>Номер</th>
@@ -21,11 +21,11 @@
                     <td>{{ $key + 1}}</td>
                     <td>{{ $result->wordCombination->englishWord->word }}</td>
                     <td>{{ $result->wordCombination->russianWord->word }}</td>
-                    <td class="{{ $result->result == 2 ? 'asnwerRight' : 'asnwerWrong' }}">{{ $result->result == 2 ? 'Правильно' : 'Неправильно' }}</td>
+                    <td class="{{ $result->result == 2 ? 'asnwer-right' : 'asnwer-wrong' }}">{{ $result->result == 2 ? 'Правильно' : 'Неправильно' }}</td>
                 </tr>
                 @endforeach
             </table>
-            <input class="submitButton" type="button" value="Напечатать результат" onClick="window.print()" />
+            <input class="submit-button" type="button" value="Напечатать результат" onClick="window.print()" />
         </div>
     </div>
 </div>

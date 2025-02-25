@@ -3,7 +3,7 @@ body {
     background-color: rgb(230, 229, 229);
     font-family: Arial, Helvetica, sans-serif; 
 }
-.aboutHeader {
+.abou-header {
     background-color: #1a233c;
     width: 90%;
     padding: 12px;
@@ -18,13 +18,13 @@ a {
     text-decoration: none;
     color: white;
 }
-.mobileMenu {
+.mobile-menu {
     display: none;
 }
-.mainMenu {
+.main-menu {
     padding: 9px;
 }
-.mainMenu:hover {
+.main-menu:hover {
     background-color: #2b3246;
 }
 
@@ -32,8 +32,11 @@ a {
     padding: 1%;
     border-radius: 5px;
 }
+.margin-medium {
+    margin: 5px;
+}
 
-.dashboardHeader {
+.dashboard-header {
     width: 98%;
     height: auto;
     position: fixed;
@@ -44,7 +47,7 @@ a {
     display: flex;
     z-index: 1;
 }
-.dashboardHeaderNav{
+.dashboard-header-nav{
     width: 98%;
     position: absolute;
 
@@ -68,7 +71,7 @@ a {
         cursor: pointer;
     }
 }
-.dashboardHeaderLogo {
+.dashboard-header-logo {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
     text-transform: uppercase;
@@ -79,7 +82,7 @@ a {
     mix-blend-mode: multiply;
     padding: 5px 10px;
 }
-.dashboardSidebar {
+.dashboard-sidebar {
     height: 100%;
     width: 200px;
     margin-top: 49px;
@@ -88,7 +91,7 @@ a {
     border-right: 1px solid rgb(185, 185, 185);
     padding-top: 10px;
 }
-.dashboardButton {
+.dashboard-button {
     color: black;
     width: 130px;
     height: auto;
@@ -98,22 +101,22 @@ a {
     display: inline-block;
     font-size: 14pt;
 }
-.dashboardButton:hover {
+.dashboard-button:hover {
     background-color: rgb(230, 229, 229);
 }
-.dashboardButton:active {
+.dashboard-button:active {
     background-color: rgb(185, 185, 185);
 }
-.dashboardBody {
+.dashboard-body {
     padding-left: 204px;
     padding-top: 60px;
 }
 
-.wordContainer {
+.word-container {
     size: auto;
     display:inline-block;
 }
-.wordCard {
+.word-card {
     width: 150px;
     height: auto;
     margin-left: 4px;
@@ -140,7 +143,7 @@ a {
     border: rgb(185, 185, 185) solid 1px;
 }
 
-.wordHead {
+.word-head {
     /* width: calc(100%-20px); */
     width: max-content;
     height: auto;
@@ -149,6 +152,15 @@ a {
     font-size: 40px;
     background-color: rgb(230, 229, 229);
     border-radius: 5px;
+}
+.word-head-big {
+    background-color: #09163a;
+    color: white;
+    font-size: 4em;
+    margin: 0% 0.5%;
+    padding: 2% 1%;
+    width: calc(100%-2%);
+    border-radius: 30px;
 }
 
 .substrate {
@@ -159,7 +171,7 @@ a {
     background-color: white;
     border-radius: 5px;
 
-    .informationContainer {
+    .information-container {
         width: auto;
         height: auto;
         padding: 10px;
@@ -168,12 +180,12 @@ a {
         font-size: 24pt;
     }
 
-    .informationContainer:not(:last-child) {
+    .information-container:not(:last-child) {
         margin-bottom: 10px;
     }
 }
 
-.scroll_container {
+.scroll-container {
     size: auto;
     display: flex;
     padding-bottom: 5px;
@@ -192,7 +204,7 @@ a {
         font-size: 16pt;
         color: black;
     }
-    .card2 {
+    .card-gray {
         display: inline-block;
         margin-left: 4px;
         margin-top: 12px;
@@ -205,11 +217,11 @@ a {
     }
 
 }
-.scroll_container::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
     width: 12px;               /* ширина scrollbar */
     height: 8px;
 }
-.scroll_container::-webkit-scrollbar-thumb {
+.scroll-container::-webkit-scrollbar-thumb {
     background-color: rgb(189, 189, 189);    /* цвет плашки */
     border-radius: 20px;       /* закругления плашки */
 }
@@ -223,17 +235,17 @@ a {
         padding: 3%;
         margin-left: 2%;
     }
-    .mainMenu {
+    .main-menu {
         display: none;
     }
-    .mobileMenu {
+    .mobile-menu {
         display: inline-block;
         float: right;
     }
 }
 
 @media print {
-    .dashboardSidebar, form, .submitButton {
+    .dashboard-sidebar, form, .submit-button {
         visibility: hidden;
         display: none;
     }
@@ -265,16 +277,19 @@ a {
     a {
         color: black;
     }
-    .asnwerRight {
+    .asnwer-right {
         background-color: rgb(75, 170, 83);
     }
-    .asnwerWrong {
+    .asnwer-wrong {
         background-color: rgb(170, 75, 75);
     }
 }
 
-
-.submitButton {
+.button-form {
+    width: auto;
+    display: inline-block;
+}
+.submit-button {
     width: auto;
     height: auto;
     padding: 10px;
@@ -290,7 +305,7 @@ button:hover {
     cursor: pointer;
 }
 
-.testContainer {
+.test-container {
     width: auto;
     height: auto;
     margin: 2% 15%;
@@ -316,7 +331,7 @@ button:hover {
                                     supported by Chrome, Edge, Opera and Firefox */
     }
 
-    .answerContainer {
+    .answer-container {
         padding: 2%;
 
         .asnwer {
@@ -333,19 +348,19 @@ button:hover {
             width: 30pt;
             height: 2em;
         }
-        .submitButton {
+        .submit-button {
             font-size: 20pt;
         }
     }
 }
-.centerContainer {
+.center-container {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.authForm {
+.auth-form {
     width: auto;
     height: auto;
     margin-left: 20%;
@@ -363,7 +378,7 @@ button:hover {
         padding: 1% 2%;
         font-size: 28pt;
     }
-    .rememberMe{
+    .remember-me{
         font-size: 12pt;
     }
     input[type=checkbox] {
@@ -396,7 +411,7 @@ button:hover {
     height: 34px !important;
 }
 
-.navigateButton {
+.navigate-button {
     background-color: #2b3246;
     font-size: 15pt;
     padding: 10px;
@@ -407,7 +422,7 @@ button:hover {
     margin-right: 10px;
     border-radius: 50%;
 }
-.questionNumber{
+.question-number{
     width: 150px;
     height: auto;
     margin-left: 4px;
@@ -432,7 +447,7 @@ button:hover {
     color: #09163a;
 }
 
-.testCardContainer{
+.test-card-container{
     size: 100%;
     display: grid;
     grid-template-columns: 
@@ -440,7 +455,7 @@ button:hover {
     gap: 10px;
     margin-right: 5px;
 }
-.testCard{
+.test-card{
     /* width: 70%; */
     /* height: auto; */
     padding: 15px;
@@ -449,26 +464,26 @@ button:hover {
     font-size: 16pt;
     color: black;
 }
-.headTestCard {
+.headtest-card {
     margin-bottom: 4px;
 }
-.concretWordTestCard {
+.concret-wordtest-card {
     background-color: rgb(230, 229, 229);
     padding: 1%;
     border-radius: 5px;
     margin-top: 5px;
 }
 
-.searchForm {
+.search-form {
     z-index: 2;
     height: 100%;
 }
-.searchInput {
+.search-input {
     height: 80%;
     border: 1px solid gray;
     border-radius: 5px;
 }
-.searchButton {
+.search-button {
     height: 100%;
     border: 0px;
     background-color: rgb(255, 255, 255)
@@ -478,13 +493,11 @@ button:hover {
     display: flex;
     width: 100%;
     height: 20px;
-    margin: 1%;
-    margin-top: 3%;
+    margin-top: 5px
 }
 .answer {
     width: 20px;
     height: 20px;
     display: inline-block;
     margin: 0px;
-    padding: 1%;
 }

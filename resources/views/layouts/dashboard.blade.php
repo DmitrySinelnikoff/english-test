@@ -9,20 +9,20 @@
     <link rel="stylesheet" href="{{ asset('js/select2/css/select2.min.css') }}">
 </head>
 <body>
-    <header class="dashboardHeader">
-        <div class="dashboardHeaderLogo">
+    <header class="dashboard-header">
+        <div class="dashboard-header-logo">
             <a href="{{ route('main.index') }}">Английский</a>
         </div>
-        <div class="centerContainer">
-            <form method="POST" action="{{ route('search.index')}}" class="searchForm" onsubmit="return validateSearch()">
+        <div class="center-container">
+            <form method="POST" action="{{ route('search.index')}}" class="search-form" onsubmit="return validateSearch()">
                 @csrf
-                <input type="text" name="search" value="{{ old('name') }}" class="searchInput" id="searchText">
-                <input type="submit" value="🔍" class="searchButton">
+                <input type="text" name="search" value="{{ old('name') }}" class="search-input" id="searchText">
+                <input type="submit" value="🔍" class="search-button">
             </form>
         </div>
-        <div class="dashboardHeaderNav">
+        <div class="dashboard-header-nav">
             @auth
-            <div class="dashboardHeaderLogo">
+            <div class="dashboard-header-logo">
                 <a href="{{ route('home') }}">Аккаунт</a>
             </div>
             <div>
@@ -33,25 +33,25 @@
             </div>
             @endauth
             @guest
-            <div class="dashboardHeaderLogo">
+            <div class="dashboard-header-logo">
                 <a href="{{ route('login') }}">Войти</a>
             </div>
             @endguest
         </div>
     </header>
-    <div class="dashboardSidebar">
-        <a href="{{ route('main.index') }}" class="dashboardButton">Главная</a>
-        <a href="{{ route('word.index') }}" class="dashboardButton">Слова</a>
-        <a href="{{ route('tags.index') }}" class="dashboardButton">Категории тестов</a>
-        <a href="{{ route('wordtest.list') }}" class="dashboardButton">Ваши тесты</a>
+    <div class="dashboard-sidebar">
+        <a href="{{ route('main.index') }}" class="dashboard-button">Главная</a>
+        <a href="{{ route('word.index') }}" class="dashboard-button">Слова</a>
+        <a href="{{ route('tags.index') }}" class="dashboard-button">Категории тестов</a>
+        <a href="{{ route('wordtest.list') }}" class="dashboard-button">Ваши тесты</a>
         @auth
-            <a href="{{ route('suggest.create') }}" class="dashboardButton">Предложить слово</a>
+            <a href="{{ route('suggest.create') }}" class="dashboard-button">Предложить слово</a>
         @endauth
         @if(auth()->check() && Auth::user()->role == App\Enums\RoleEnum::Admin)
-            <a href="{{ route('suggest.index') }}" class="dashboardButton">Предложенные слова</a>
+            <a href="{{ route('suggest.index') }}" class="dashboard-button">Предложенные слова</a>
         @endif
     </div>
-    <div class="dashboardBody">
+    <div class="dashboard-body">
         @yield('content')
     </div>
     <script src="{{ asset('js/jquery.min.js') }}"></script>

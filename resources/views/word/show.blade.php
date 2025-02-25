@@ -5,49 +5,67 @@
 @endsection
 
 @section('content')
-    <div class="substrate">
-        <div class="wordHead">
-            {{ $word->word }} - {{ $word->transcription }}
+    <div class="word-head-big">
+        <div class="center-container">
+            {{ $word->word }}
         </div>
-        <h1>Перевод</h1>
-        <div class="scroll_container">
-            @foreach ($word->translate as $translate)
-                <div class="card2">{{ $translate->word }}</div>
-            @endforeach
-        </div>
-        <h1>Тег</h1>
-        <div class="scroll_container">
-            @foreach ($word->tag as $tag)
-                <div class="card2">{{ $tag->name }}</div>
-            @endforeach
-        </div>
-        @if(auth()->check() && auth::user()->role == app\enums\RoleEnum::Admin)
-            <form action="{{ route('word.delete', $word) }}" method="post">
+    </div>
+    @if(auth()->check() && auth::user()->role == app\enums\RoleEnum::Admin)
+        <div class="substrate">
+            <form action="{{ route('word.delete', $word) }}" method="post" class="button-form">
                 @csrf
                 @method('delete')
-                <button type="submit" class="submitButton">
+                <button type="submit" class="submit-button">
                     Удалить
                 </button>
             </form>
-        @endif
+            <form action="#" method="post" class="button-form">
+                @csrf
+                <button type="submit" class="submit-button">
+                   Изменить 
+                </button>
+            </form>
+        </div>
+    @endif
+    <div class="substrate">
+        <h1>Транскрипция: {{ $word->transcription }}</h1>
+    </div>
+    <div class="substrate">
+        <h1>Перевод</h1>
+        <div class="scroll-container">
+            @foreach ($word->translate as $translate)
+                <div class="card-gray">{{ $translate->word }}</div>
+            @endforeach
+        </div>
+    </div>
+    <div class="substrate">
+        <h1>Категории</h1>
+        <div class="scroll-container">
+            @foreach ($word->tag as $tag)
+                <div class="card-gray">{{ $tag->name }}</div>
+            @endforeach
+        </div>
     </div>
     <div class="substrate">
         <h1>Статистика всех тестов</div=>
-        <div class="scroll_container">
+        <div class="scroll-container">
             @foreach($results as $key => $result)
-                <div class="card2">
+                <div class="card-gray">
                     <h1>{{$result['englishWord']}} - {{$result['russianWord']}}</h1>
-                    Всего: <span class="round" id="test-question-count-{{$key}}">{{$result['testQuestionCount']}}</span><br>
-                    Правильных: <span class="round green" id="true-answer-count-{{$key}}">{{$result['trueAnswerCount']}}</span><br>
-                    Неправльных: <span class="round red" id="false-answer-count-{{$key}}">{{$result['falseAnswerCount']}}</span><br>
+                    <div class="margin-medium">Всего: <span class="round" id="test-question-count-{{$key}}">{{$result['testQuestionCount']}}</span></div>
+                    <div class="margin-medium">Правильных: <span class="round green" id="true-answer-count-{{$key}}">{{$result['trueAnswerCount']}}</span></div>
+                    <div class="margin-medium">Неправльных: <span class="round red" id="false-answer-count-{{$key}}">{{$result['falseAnswerCount']}}</span></div>
                     <div class="answer-graph-container">
-                        <div class="answer green" id="true-answer-{{$key}}"></div>
-                        <div class="answer blue" id="none-answer-{{$key}}"></div>
-                        <div class="answer red" id="false-answer-{{$key}}"></div>
+                        <div class="answer green" id="true-answer-{{$key}}" title="Правильных ответов"></div>
+                        <div class="answer blue" id="none-answer-{{$key}}" title="Без ответа"></div>
+                        <div class="answer red" id="false-answer-{{$key}}" title="Неправильных ответов"></div>
                     </div>
                 </div>
             @endforeach
         </div>
+    </div>
+    <div class="substrate">
+        <h1>Просмотров у слова: {{ $wordViewCount }}</h1>
     </div>
     <script>
         for(let i = 0; i < {{ count($results) }}; i++) {

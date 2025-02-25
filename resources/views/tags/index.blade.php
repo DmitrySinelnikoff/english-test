@@ -6,10 +6,10 @@
 
 @section('content')
     @foreach ($tags as $tag)
-        <div class="wordContainer">
+        <div class="word-container">
             @if ($tag->words->count() > 0)
             <a href="{{ route('tags.show', ['tag' => $tag]) }}">
-                <div class="wordCard">
+                <div class="word-card">
                     <span>
                         {{ $tag->name }}
                     </span>

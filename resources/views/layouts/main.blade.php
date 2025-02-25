@@ -10,9 +10,9 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    <header class="aboutHeader">
+    <header class="abou-header">
         <span>Логотип</span>
-        <a href="/" class="mainMenu">aa</a>
+        <a href="/" class="main-menu">aa</a>
     </header>
     @yield('content')
 </body>

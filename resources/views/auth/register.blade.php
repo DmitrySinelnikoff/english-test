@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="substrate">
-        <form method="POST" class="authForm" action="{{ route('register') }}">
+        <form method="POST" class="auth-form" action="{{ route('register') }}">
             @csrf
             <label for="name">Имя</label>
             <input id="name" type="text" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -19,10 +19,10 @@
 
             <label for="password-confirm">Подтвердите пароль</label>
             <input id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
-            <div class="centerContainer">
-                <button type="submit" class="submitButton">Регистрация</button>
+            <div class="center-container">
+                <button type="submit" class="submit-button">Регистрация</button>
             </div>
-            <div class="centerContainer">
+            <div class="center-container">
                 <a href="{{ route('login') }}">Авторизация</a>
             </div>
         </form>

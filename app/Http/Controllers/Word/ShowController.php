@@ -31,7 +31,9 @@ class ShowController extends Controller
                 'falseAnswerCount' => $falseAnswerCount 
             ];
         }
+        
+        $wordViewCount = $word->wordView->count();
 
-        return view('word.show', compact('word', 'results'));
+        return view('word.show', compact('word', 'results', 'wordViewCount'));
     }
 }

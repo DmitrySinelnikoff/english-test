@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="substrate">
-    <form action="{{ route('suggest.store') }}" class="authForm" method="post">
+    <form action="{{ route('suggest.store') }}" class="auth-form" method="post">
         @csrf
 
         <label>Английское слово</label>
@@ -45,8 +45,8 @@
         @error('translate_id')
             <div>{{ $message }}</div>
         @enderror
-        <div class="centerContainer">
-            <button type="submit" class="submitButton">Отправить</button>
+        <div class="center-container">
+            <button type="submit" class="submit-button">Отправить</button>
         </div>
     </form>
 </div>
