@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Search;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Models\EnglishWord;
 use App\Models\RussianWord;
 use App\Models\Tag;
 
-class IndexController extends Controller
+class SearchController extends Controller
 {
     public function index(Request $request)
     {

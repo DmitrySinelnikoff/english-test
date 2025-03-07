@@ -1,15 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Word;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Enums\StatusEnum;
+use Illuminate\Http\Request;
 use App\Models\EnglishWord;
 use App\Models\TestQuestion;
 use App\Models\WordView;
 
-class ShowController extends Controller
+class WordController extends Controller
 {
-    public function index(EnglishWord $word)
+    public function index()
+    {
+        $words = EnglishWord::where('status', StatusEnum::Approved)->paginate(81);
+        return view('word.index', compact('words'));
+    }
+
+    public function create()
+    {
+        //
+    }
+
+    public function store(Request $request)
+    {
+        //
+    }
+
+    public function show(EnglishWord $word)
     {
         if(auth()->check()){
             WordView::createViewLog($word);
@@ -35,5 +52,21 @@ class ShowController extends Controller
         $wordViewCount = $word->wordView->count();
 
         return view('word.show', compact('word', 'results', 'wordViewCount'));
+    }
+
+    public function edit($id)
+    {
+        //
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function destroy(EnglishWord $word)
+    {
+        $word->delete();
+        return redirect()->route('word.index');
     }
 }

@@ -8,39 +8,39 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::name('main.')->group(function() {
-    Route::get('/', [App\Http\Controllers\Main\IndexController::class, 'index'])->name('index');
+    Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('index');
 });
 
 Route::prefix('words')->name('word.')->group(function() {
-    Route::get('/', [App\Http\Controllers\Word\IndexController::class, 'index'])->name('index');
-    Route::get('/{word}', [App\Http\Controllers\Word\ShowController::class, 'index'])->name('show');
-    Route::delete('/{word}', [App\Http\Controllers\Word\DeleteController::class, 'index'])->name('delete');
+    Route::get('/', [App\Http\Controllers\WordController::class, 'index'])->name('index');
+    Route::get('/{word}', [App\Http\Controllers\WordController::class, 'show'])->name('show');
+    Route::delete('/{word}', [App\Http\Controllers\WordController::class, 'destroy'])->name('delete');
 
 });
 
 Route::prefix('suggest')->name('suggest.')->group(function() {
-    Route::get('/', [App\Http\Controllers\Suggest\IndexController::class, 'index'])->name('index');
-    Route::get('/create', [App\Http\Controllers\Suggest\CreateController::class, 'index'])->name('create')->middleware('auth');
-    Route::post('/', [App\Http\Controllers\Suggest\StoreController::class, 'index'])->name('store');
-    Route::delete('/{word}', [App\Http\Controllers\Suggest\DeleteController::class, 'index'])->name('delete');
-    Route::patch('/approved/{word}', [App\Http\Controllers\Suggest\ApprovedController::class, 'index'])->name('approved');
+    Route::get('/', [App\Http\Controllers\SuggestController::class, 'index'])->name('index');
+    Route::get('/create', [App\Http\Controllers\SuggestController::class, 'create'])->name('create')->middleware('auth');
+    Route::post('/', [App\Http\Controllers\SuggestController::class, 'store'])->name('store');
+    Route::delete('/{word}', [App\Http\Controllers\SuggestController::class, 'destroy'])->name('delete');
+    Route::patch('/approved/{word}', [App\Http\Controllers\SuggestController::class, 'approved'])->name('approved');
 });
 
 Route::prefix('tags')->name('tags.')->group(function() {
-    Route::get('/', [App\Http\Controllers\Tags\IndexController::class, 'index'])->name('index');
-    Route::get('/{tag}', [App\Http\Controllers\Tags\ShowController::class, 'index'])->name('show');
+    Route::get('/', [App\Http\Controllers\TagController::class, 'index'])->name('index');
+    Route::get('/{tag}', [App\Http\Controllers\TagController::class, 'show'])->name('show');
 });
 
 Route::middleware('auth')->group(function() {
     Route::prefix('wordtest')->name('wordtest.')->group(function() {
-        Route::post('/test', [App\Http\Controllers\WordTest\IndexController::class, 'index'])->name('index');
-        Route::get('/show/{test}/{index}', [App\Http\Controllers\WordTest\ShowController::class, 'index'])->name('show');
-        Route::get('/list', [App\Http\Controllers\WordTest\ListController::class, 'index'])->name('list');
-        Route::post('/check', [App\Http\Controllers\WordTest\CheckController::class, 'index'])->name('check');
-        Route::get('/result/{test}', [App\Http\Controllers\WordTest\ResultController::class, 'index'])->name('result');
+        Route::post('/test', [App\Http\Controllers\WordTestController::class, 'index'])->name('index');
+        Route::get('/show/{test}/{index}', [App\Http\Controllers\WordTestController::class, 'show'])->name('show');
+        Route::get('/list', [App\Http\Controllers\WordTestController::class, 'list'])->name('list');
+        Route::post('/check', [App\Http\Controllers\WordTestController::class, 'check'])->name('check');
+        Route::get('/result/{test}', [App\Http\Controllers\WordTestController::class, 'result'])->name('result');
     });
 });
 
 Route::prefix('search')->name('search.')->group(function() {
-    Route::post('/', [App\Http\Controllers\Search\IndexController::class,'index'])->name('index');
+    Route::post('/', [App\Http\Controllers\SearchController::class,'index'])->name('index');
 });
