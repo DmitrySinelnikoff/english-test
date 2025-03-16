@@ -23,4 +23,8 @@
     <div>
         {{ $words->links('pagination::bootstrap-4') }}
     </div>
+    {{-- <div class="submit-button">
+        <a href="{{ route('word.edit', ['word' => $word]) }}">+</a>
+    </div> --}}
+    <a class="add-button" href="#">+</a>
 @endsection

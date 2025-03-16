@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 
 class TagController extends Controller
@@ -15,12 +15,15 @@ class TagController extends Controller
 
     public function create()
     {
-        //
+        return view('tags.create');
     }
-
-    public function store(Request $request)
+    
+    public function store(TagRequest $request)
     {
-        //
+        debugbar()->addMessage('hello');
+        $data = $request->validated();
+        Tag::firstOrCreate($data);
+        return redirect()->route('tags.index');
     }
 
     public function show(Tag $tag)
@@ -37,18 +40,21 @@ class TagController extends Controller
         return view('tags.show', compact('tag', 'examplesTag'));
     }
 
-    public function edit($id)
+    public function edit(Tag $tag)
     {
-        //
+        return view('tags.edit', compact('tag'));
     }
 
-    public function update(Request $request, $id)
+    public function update(TagRequest $request, Tag $tag)
     {
-        //
+        $data = $request->validated();
+        $tag->update($data);
+        return redirect()->route('tags.show', ['tag' => $tag]);
     }
 
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->route('tags.index');
     }
 }

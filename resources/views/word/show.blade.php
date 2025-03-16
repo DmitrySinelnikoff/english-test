@@ -10,7 +10,7 @@
             {{ $word->word }}
         </div>
     </div>
-    @if(auth()->check() && auth::user()->role == app\enums\RoleEnum::Admin)
+    @if(auth()->check() && auth()->user()->role == app\enums\RoleEnum::Admin)
         <div class="substrate">
             <form action="{{ route('word.delete', $word) }}" method="post" class="button-form">
                 @csrf

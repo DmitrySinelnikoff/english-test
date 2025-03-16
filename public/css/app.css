@@ -501,3 +501,15 @@ button:hover {
     display: inline-block;
     margin: 0px;
 }
+
+.add-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #30498f;
+    color: white;
+    padding: 20px 24px;
+    border-radius: 50%;
+    margin: 10px;
+    font-size: 1.5rem;
+}

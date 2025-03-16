@@ -54,9 +54,9 @@ class WordController extends Controller
         return view('word.show', compact('word', 'results', 'wordViewCount'));
     }
 
-    public function edit($id)
+    public function edit(EnglishWord $word)
     {
-        //
+        return view('word.edit', compact('word'));
     }
 
     public function update(Request $request, $id)

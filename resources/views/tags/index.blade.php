@@ -25,4 +25,5 @@
     <div>
         {{ $tags->links('pagination::bootstrap-4') }}
     </div>
+    <a class="add-button" href="{{ route('tags.create') }}">+</a>
 @endsection
