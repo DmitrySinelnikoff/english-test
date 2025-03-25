@@ -1,25 +1,23 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Предложить слово
+    Создание слова
 @endsection
 
 @section('content')
 <div class="substrate">
-    <form action="{{ route('suggest.store') }}" class="auth-form" method="post">
+    <form action="{{ route('word.store') }}" method="post" class="auth-form">
         @csrf
-        <label>Английское слово</label>
-        <input type="text" name="word" value="{{ old('word') }}"><br>
+        <label for="word">Слово</label>
+        <input type="text" name="word" id="word">
         @error('word')
             <div>{{ $message }}</div>
         @enderror
-
-        <label>Транскрипция</label>
-        <input type="text" name="transcription" value="{{ old('transcription') }}"><br>
+        <label for="transcription">Транскрипция</label>
+        <input type="text" name="transcription" id="transcription">
         @error('transcription')
             <div>{{ $message }}</div>
         @enderror
-
         <label>Теги</label>
         <select name="tag_ids[]" class="select2" multiple>
             @foreach ($tags as $tag)
@@ -27,11 +25,7 @@
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                 @endif
             @endforeach
-        </select><br>
-        @error('tag_ids')
-            <div>{{ $message }}</div>
-        @enderror
-
+        </select>
         <label>Перевод</label>
         <select name="translate_id" class="select2">
             <option disabled selected value>---------</option>
@@ -40,14 +34,10 @@
                     <option value="{{ $word->id }}">{{ $word->word }}</option>
                 @endforeach
             @endforeach
-        </select><br>
-        @error('translate_id')
-            <div>{{ $message }}</div>
-        @enderror
+        </select>
         <div class="center-container">
-            <button type="submit" class="submit-button">Отправить</button>
+            <button type="submit" class="submit-button">Добавить</button>   
         </div>
     </form>
-</div>
-
+</div> 
 @endsection

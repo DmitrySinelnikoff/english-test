@@ -12,10 +12,6 @@ class EnglishWord extends Model
 
     protected $guarded = false;
 
-    protected $casts = [
-        'status' => StatusEnum::class,
-    ];
-
     public function translate() {
         return $this->belongsToMany(RussianWord::class, 'english_russian_words');
     }

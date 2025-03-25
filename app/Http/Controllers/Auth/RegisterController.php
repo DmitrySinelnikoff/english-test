@@ -25,6 +25,17 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ],
+        [
+            'name.required' => 'Необходимо заполнить поле!',
+            'email.required' => 'Необходимо заполнить поле!',
+            'password.required' => 'Необходимо заполнить поле!',
+            'name.max' => 'Максимальная длина 255 символов!',
+            'email.max' => 'Максимальная длина 255 символов!',
+            'password.min' => 'Минимальная длина пароля 8 символов!',
+            'email.email' => 'В данное поле необходимо заполнить почту!',
+            'email.unique' => 'Ошибка ввода почты!',
+            'password.confirmed' => 'Пароли не совпадают!'
         ]);
     }
 
@@ -34,6 +45,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'user_role_id' => 1
         ]);
     }
 }

@@ -55,6 +55,9 @@ class WordTestController extends Controller
 
     public function show(Test $test, int $question)
     {
+        if(Auth::user()->id != $test->user_id) {
+            abort(500);
+        }
         $thisQuestionPage = $question;
 
         if($thisQuestionPage <= 0) {

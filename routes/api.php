@@ -28,3 +28,5 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/words/tag/{tag}', 'App\Http\Controllers\Api\WordTagController@index');
 
 // Route::get('/wordss', 'App\Http\Controllers\Api\CreateAddController@index');
+
+// Route::get('/api/v1/tags', [App\Http\Controllers\Api\TagsController::class, 'index']);

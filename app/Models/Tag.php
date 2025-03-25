@@ -12,7 +12,7 @@ class Tag extends Model
     protected $guarded = false;
 
     public function words() {
-        return $this->belongsToMany(EnglishWord::class, 'tag_words')->where('status', 1);
+        return $this->belongsToMany(EnglishWord::class, 'tag_words')->where('word_status_id', 2);
     }
 
     public function wordsAll() {

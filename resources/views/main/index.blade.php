@@ -22,6 +22,19 @@
 </div>
 
 <div class="substrate">
+    <h1 class="">Новые пользователи</h1>
+    <div class="scroll-container">
+        @foreach ($users as $user)
+        <a href="{{ route('user.show', ['user' => $user]) }}">
+            <div class="card-gray">
+                <div>{{ $user->name }}</div>
+            </div>
+        </a>
+        @endforeach
+    </div>
+</div>
+
+<div class="substrate">
     <h1 class="">Популярные слова</h1>
     <div class="scroll-container">
         @foreach ($views as $view)
@@ -35,8 +48,8 @@
 </div>
 
 @auth
-    <div class="substrate">
-        @if($viewed->count())
+    @if($viewed->count())
+        <div class="substrate">
             <h1 class="">Ваши просмотры</h1>
             <div class="scroll-container">
                 @foreach ($viewed as $view)
@@ -47,8 +60,8 @@
                 </a>
                 @endforeach
             </div>
-        @endif
-    </div>
+        </div>
+    @endif
 @endauth
 
 @endsection

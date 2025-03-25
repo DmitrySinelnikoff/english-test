@@ -8,13 +8,12 @@ use App\Models\RussianWord;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Enums\StatusEnum;
 
 class SuggestController extends Controller
 {
     public function index()
     {
-        $data = EnglishWord::where('status', StatusEnum::Suggested)->get();
+        $data = EnglishWord::where('word_status_id', 1)->get();
         return view('suggest.index', ['data'=>$data]);
 
     }
@@ -32,7 +31,7 @@ class SuggestController extends Controller
         try {
             DB::beginTransaction();
             $data = $request->validated();
-            $englishWord = EnglishWord::firstOrCreate(['word'=>$data['word'], 'transcription'=>$data['transcription']]);
+            $englishWord = EnglishWord::firstOrCreate(['word'=>$data['word'], 'transcription'=>$data['transcription'], 'word_status_id' => 1]);
 
             foreach($data['tag_ids'] as $tag)
             {
@@ -88,7 +87,7 @@ class SuggestController extends Controller
 
     public function approved(Request $request, EnglishWord $word)
     {
-        $word->status = StatusEnum::Approved;
+        $word->word_status_id = 2;
         $word->save();
         return redirect()->route('suggest.index');
     }

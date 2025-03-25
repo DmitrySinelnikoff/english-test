@@ -28,7 +28,7 @@ class WordView extends Model
 
     public static function mostShowed() {
         return EnglishWord::join("word_views", "word_views.english_word_id", "=", "english_words.id")
-            ->where('english_words.status', 1)
+            ->where('english_words.word_status_id', 2)
             ->groupBy("english_words.id")
             ->orderBy(DB::raw('COUNT(english_words.id)'), 'desc')
             ->limit(50)

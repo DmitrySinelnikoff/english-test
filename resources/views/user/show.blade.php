@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="substrate">
-    <div class="information-container">Имя: {{ Auth::user()->name }}</div>
-    <div class="information-container">Почта: {{ Auth::user()->email }}</div>
-    <div class="information-container">Роль: {{ Auth::user()->role == App\Enums\RoleEnum::User ? 'Пользователь' : 'Администратор'}}</div>
-    <div class="information-container">Очки: {{ Auth::user()->userSumResult() }}</div>
-    <div class="information-container">Кол-во пройденных тестов: {{ Auth::user()->userTestCount() }}</div>
-    <div class="information-container">Правильных ответов: {{ Auth::user()->trueAnswerPercente() }}%</div>
+    <div class="information-container">Имя: {{ $user->name }}</div>
+    <div class="information-container">Почта: {{ $user->email }}</div>
+    <div class="information-container">Роль: {{ $user->user_role_id == 1 ? 'Пользователь' : 'Администратор'}}</div>
+    <div class="information-container">Очки: {{ $user->userSumResult() }}</div>
+    <div class="information-container">Кол-во пройденных тестов: {{ $user->userTestCount() }}</div>
+    <div class="information-container">Правильных ответов: {{ $user->trueAnswerPercente() }}%</div>
 </div>
 <div class="substrate">
     <h1>Последние тесты пользователя</h1>
@@ -36,7 +36,7 @@
     </div>
 </div>
 <div class="substrate">
-    <h1>Ваши последнии неправльные ответы</h1>
+    <h1>Последние неправильные ответы</h1>
     <div class="scroll-container" id="scroll-bad-answer">
         @foreach ($tests as $test)
             @foreach ($test->questions as $question)

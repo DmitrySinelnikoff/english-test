@@ -513,3 +513,13 @@ button:hover {
     margin: 10px;
     font-size: 1.5rem;
 }
+
+@media screen and (max-width: 600px) {
+    .dashboard-sidebar, .search-form, #logout, #auth, #accaunt {
+        visibility: hidden;
+    }
+    .dashboard-body {
+        padding: 1%;
+        padding-top: 10%;
+    }
+}

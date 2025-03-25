@@ -10,9 +10,9 @@
                 {{ $tag->name }} - {{ $tag->words->count() }}
             </div>
         </div>
-        @if(auth()->check() && auth()->user()->role == app\enums\RoleEnum::Admin)
+        @if(auth()->check() && auth()->user()->user_role_id == 2)
             <div class="substrate">
-                <form action="#" method="post" class="button-form">
+                <form action="{{ route('tags.delete', $tag) }}" method="post" class="button-form" onsubmit="return validateDelete()">
                     @csrf
                     @method('delete')
                     <button type="submit" class="submit-button">Удалить</button>
@@ -49,4 +49,13 @@
                 </div>
             </div>
         @endif
+    <script>
+        function validateDelete() {
+            if(confirm('Вы хотите удалить этот тег?')) {
+                return true
+            } else {
+                return false
+            }
+        }
+    </script>
 @endsection

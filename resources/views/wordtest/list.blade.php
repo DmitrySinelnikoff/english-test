@@ -14,25 +14,25 @@
     @else
         <div class="test-card-container">
             @foreach ($tests as $index => $test)
-                    <a href="{{ route('wordtest.show', ['test' => $test, 'index' => 1]) }}">
-                        <div class="test-card">
-                            <div class="center-container">
-                                <div class="headtest-card">Тест №{{ $test->id }}</div>
-                            </div>
-                            @foreach($test->questions as $question)
-                                <div class="concret-wordtest-card">
-                                    @if($question->result == 2)
-                                        🟢
-                                    @elseif($question->result == 1)
-                                        🔴
-                                    @else
-                                        🔵
-                                    @endif
-                                    {{ $question->wordCombination->englishWord->word }}
-                                </div>
-                            @endforeach
+                <a href="{{ route('wordtest.show', ['test' => $test, 'index' => 1]) }}">
+                    <div class="test-card">
+                        <div class="center-container">
+                            <div class="headtest-card">Тест №{{ $test->id }}</div>
                         </div>
-                    </a>
+                        @foreach($test->questions as $question)
+                            <div class="concret-wordtest-card">
+                                @if($question->result == 2)
+                                    🟢
+                                @elseif($question->result == 1)
+                                    🔴
+                                @else
+                                    🔵
+                                @endif
+                                {{ $question->wordCombination->englishWord->word }}
+                            </div>
+                        @endforeach
+                    </div>
+                </a>
             @endforeach
         </div>
     @endif

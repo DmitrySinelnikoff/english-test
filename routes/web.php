@@ -4,19 +4,23 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 Route::name('main.')->group(function() {
     Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('index');
 });
 
+Route::prefix('users')->name('user.')->group(function(){
+    Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('index');
+    Route::get('show/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('show');
+});
+
 Route::prefix('words')->name('word.')->group(function() {
     Route::get('/', [App\Http\Controllers\WordController::class, 'index'])->name('index');
+    Route::get('/create', [App\Http\Controllers\WordController::class, 'create'])->name('create')->middleware('auth', 'admin');
+    Route::post('/store', [App\Http\Controllers\WordController::class, 'store'])->name('store')->middleware('auth', 'admin');
     Route::get('/{word}', [App\Http\Controllers\WordController::class, 'show'])->name('show');
-    Route::delete('/{word}', [App\Http\Controllers\WordController::class, 'destroy'])->name('delete');
     Route::get('/edit/{word}', [App\Http\Controllers\WordController::class, 'edit'])->name('edit');
-
+    Route::patch('/{word}', [App\Http\Controllers\WordController::class, 'update'])->name('update');
+    Route::delete('/{word}', [App\Http\Controllers\WordController::class, 'destroy'])->name('delete');
 });
 
 Route::prefix('suggest')->name('suggest.')->group(function() {

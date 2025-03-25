@@ -1,32 +1,28 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Все слова
+    Все пользователи
 @endsection
 
 @section('content')
-    @foreach ($words as $word)
+    @foreach ($users as $user)
         <div class="word-container">
-            <a href="{{ route('word.show', ['word' => $word]) }}">
+            <a href="{{ route('user.show', ['user' => $user]) }}">
                 <div class="word-card">
                     <span>
-                        {{ $word->word }}
-                    </span>
-                    <br>
-                    <span>
-                        {{ \Illuminate\Support\Str::limit($word->translate->first()->word, 10) }}
+                        {{ $user->name }}
                     </span>
                 </div>
             </a>
         </div>
     @endforeach
     <div>
-        {{ $words->links('pagination::bootstrap-4') }}
+        {{ $users->links('pagination::bootstrap-4') }}
     </div>
     {{-- <div class="submit-button">
         <a href="{{ route('word.edit', ['word' => $word]) }}">+</a>
     </div> --}}
     @if(auth()->check() && Auth::user()->user_role_id == 2)
-        <a class="add-button" href="{{ route('word.create') }}">+</a>
+        <a class="add-button" href="#">+</a>
     @endif
 @endsection

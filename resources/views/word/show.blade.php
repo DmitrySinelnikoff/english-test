@@ -10,16 +10,16 @@
             {{ $word->word }}
         </div>
     </div>
-    @if(auth()->check() && auth()->user()->role == app\enums\RoleEnum::Admin)
+    @if(auth()->check() && auth()->user()->user_role_id == 2)
         <div class="substrate">
-            <form action="{{ route('word.delete', $word) }}" method="post" class="button-form">
+            <form action="{{ route('word.delete', $word) }}" method="post" class="button-form" onsubmit="return validateDelete()">
                 @csrf
                 @method('delete')
                 <button type="submit" class="submit-button">
                     Удалить
                 </button>
             </form>
-            <form action="#" method="post" class="button-form">
+            <form action="{{ route('word.edit', $word) }}" method="get" class="button-form">
                 @csrf
                 <button type="submit" class="submit-button">
                    Изменить 
@@ -91,6 +91,14 @@
 
             const noneRes = (testQuestionCount - trueAnswerCount - falseAnswerCount) * 100 / testQuestionCount;
             noneAnswer.style.width = noneRes + '%';
+        }
+
+        function validateDelete() {
+            if(confirm('Вы хотите удалить это слово?')) {
+                return true
+            } else {
+                return false
+            }
         }
     </script>
 @endsection

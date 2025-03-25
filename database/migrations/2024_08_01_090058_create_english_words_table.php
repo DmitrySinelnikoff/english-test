@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\StatusEnum;
+use App\Models\WordStatus;
 use App\Models\WordTag;
 use Hamcrest\Core\HasToString;
 use Illuminate\Database\Migrations\Migration;
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->id();
             $table->string('word');
             $table->string('transcription');
-            $table->tinyInteger('status')->default(StatusEnum::Suggested);
+            $table->foreignIdFor(WordStatus::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

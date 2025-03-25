@@ -3,15 +3,14 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use DebugBar\DebugBar;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role->value !== User::ROLE_ADMIN)
+        if(Auth::user()->user_role_id !== 2)
         {
             abort(404);
         }

@@ -14,6 +14,7 @@ class MainController extends Controller
     {
         $tags = Tag::withCount('words')->get();
         $views = WordView::mostShowed();
+        $users = User::select('id', 'name')->orderBy('id', 'desc')->limit(10)->get();
 
         $viewed = [];
         if(Auth::check() == true)
@@ -21,6 +22,6 @@ class MainController extends Controller
             $viewed = User::viewed();
         }
 
-        return view('main.index', compact('tags', 'views', 'viewed'));
+        return view('main.index', compact('tags', 'views', 'viewed', 'users'));
     }
 }

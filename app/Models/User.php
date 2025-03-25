@@ -15,9 +15,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    const ROLE_USER = 0;
-    const ROLE_ADMIN = 1;
-
     protected $fillable = [
         'name',
         'email',
@@ -29,15 +26,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
-        'role' => RoleEnum::class,
-    ];
-
     public static function viewed() {
         return EnglishWord::join("word_views", "word_views.english_word_id", "=", "english_words.id")
         ->groupBy("english_words.id", 'word_views.created_at')
         ->where('word_views.user_id', Auth::user()->id)
-        ->where('english_words.status', 1)
+        ->where('english_words.word_status_id', 2)
         ->orderBy(DB::raw('word_views.created_at'), 'desc')
         ->limit(50)
         ->get(['english_words.*']);

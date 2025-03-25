@@ -23,10 +23,10 @@
         </div>
         <div class="dashboard-header-nav">
             @auth
-            <div class="dashboard-header-logo">
-                <a href="{{ route('home') }}">Аккаунт</a>
+            <div class="dashboard-header-logo" id="accaunt">
+                <a href="{{ route('user.show', ['user' => Auth::user()]) }}">Аккаунт</a>
             </div>
-            <div>
+            <div id="logout">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <input type="submit" value="Выйти">
@@ -34,7 +34,7 @@
             </div>
             @endauth
             @guest
-            <div class="dashboard-header-logo">
+            <div class="dashboard-header-logo" id="auth">
                 <a href="{{ route('login') }}">Войти</a>
             </div>
             @endguest
@@ -45,10 +45,11 @@
         <a href="{{ route('word.index') }}" class="dashboard-button">Слова</a>
         <a href="{{ route('tags.index') }}" class="dashboard-button">Категории тестов</a>
         <a href="{{ route('wordtest.list') }}" class="dashboard-button">Ваши тесты</a>
+        <a href="{{ route('user.index') }}" class="dashboard-button">Пользователи</a>
         @auth
             <a href="{{ route('suggest.create') }}" class="dashboard-button">Предложить слово</a>
         @endauth
-        @if(auth()->check() && Auth::user()->role == App\Enums\RoleEnum::Admin)
+        @if(auth()->check() && Auth::user()->user_role_id == 2)
             <a href="{{ route('suggest.index') }}" class="dashboard-button">Предложенные слова</a>
         @endif
     </div>
@@ -76,6 +77,21 @@
                 return true;
             } 
         }
+
+        // $('.select2').select2({
+        //     ajax: {
+        //         url: 'https://api.github.com/search/repositories',
+        //         dataType: 'json'
+        //     }
+        // });
+        function myFunction() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+            }
     </script>
 </body>
 </html>

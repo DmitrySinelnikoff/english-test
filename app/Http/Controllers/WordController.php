@@ -2,28 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\StatusEnum;
-use Illuminate\Http\Request;
+use App\Http\Requests\WordRequest;
+use App\Models\RussianWord;
+use App\Models\Tag;
 use App\Models\EnglishWord;
 use App\Models\TestQuestion;
 use App\Models\WordView;
+use DB;
 
 class WordController extends Controller
 {
     public function index()
     {
-        $words = EnglishWord::where('status', StatusEnum::Approved)->paginate(81);
+        $words = EnglishWord::where('word_status_id', 2)->paginate(81);
         return view('word.index', compact('words'));
     }
 
     public function create()
     {
-        //
+        $tags = Tag::all();
+        $russianWords = RussianWord::all();
+        return view('word.create', compact('tags', 'russianWords'));
     }
 
-    public function store(Request $request)
+    public function store(WordRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $data = $request->validated();
+            $englishWord = EnglishWord::firstOrCreate(['word'=>$data['word'], 'transcription'=>$data['transcription'], 'word_status_id' => 2]);
+
+            foreach($data['tag_ids'] as $tag)
+            {
+                if(!is_numeric($tag)) {
+                    $tagId = Tag::firstOrCreate(['name'=>$tag]);
+                    $tag = $tagId->id;
+                }
+                $englishWord->tag()->attach($tag);
+            }
+
+            $translateWord = $data['translate_id'];
+            if(!is_numeric($translateWord)) {
+                $russiamWordId = RussianWord::firstOrCreate(['word'=>$translateWord]);
+                $translateWord = $russiamWordId->id;
+            }
+            $englishWord->translate()->attach($translateWord);
+
+            DB::commit();
+        } catch(\Exception $exeption) {
+            DB::rollBack();
+            abort(500);
+        }
+        return redirect()->route('word.index');
     }
 
     public function show(EnglishWord $word)
@@ -45,7 +75,7 @@ class WordController extends Controller
                 'russianWord' => $translate->russianWord->word,
                 'testQuestionCount' => $testQuestionCount,
                 'trueAnswerCount' => $trueAnswerCount,
-                'falseAnswerCount' => $falseAnswerCount 
+                'falseAnswerCount' => $falseAnswerCount
             ];
         }
         
@@ -56,12 +86,52 @@ class WordController extends Controller
 
     public function edit(EnglishWord $word)
     {
-        return view('word.edit', compact('word'));
+        $selectTags = $word->tag;
+        $selectedTagsId = collect();
+        foreach($selectTags as $tag)
+        {
+            $selectedTagsId->push($tag->id);
+        }
+        $selectWord = $word->translate;
+        $selectedWordsId = collect();
+        foreach($selectWord as $word)
+        {
+            $selectedWordsId->push($word->id);
+        }
+        $tags = Tag::all();
+        $russianWords = RussianWord::all();
+        return view('word.edit', compact('word', 'tags', 'russianWords', 'selectedTagsId', 'selectedWordsId'));
     }
 
-    public function update(Request $request, $id)
+    public function update(WordRequest $request, EnglishWord $word)
     {
-        //
+        // try {
+        //     DB::beginTransaction();
+        //     $data = $request->validated();
+        //     $word->update(['word'=>$data['word'], 'transcription'=>$data['transcription']]);
+
+        //     foreach($data['tag_ids'] as $tag)
+        //     {
+        //         if(!is_numeric($tag)) {
+        //             $tagId = Tag::update(['name'=>$tag]);
+        //             $tag = $tagId->id;
+        //         }
+        //         $englishWord->tag()->attach($tag);
+        //     }
+
+        //     $translateWord = $data['translate_id'];
+        //     if(!is_numeric($translateWord)) {
+        //         $russiamWordId = RussianWord::firstOrCreate(['word'=>$translateWord]);
+        //         $translateWord = $russiamWordId->id;
+        //     }
+        //     $englishWord->translate()->attach($translateWord);
+
+        //     DB::commit();
+        // } catch(\Exception $exeption) {
+        //     DB::rollBack();
+        //     abort(500);
+        // }
+        // return redirect()->route('main.index');
     }
 
     public function destroy(EnglishWord $word)
