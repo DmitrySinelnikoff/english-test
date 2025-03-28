@@ -19,9 +19,6 @@
     <div>
         {{ $users->links('pagination::bootstrap-4') }}
     </div>
-    {{-- <div class="submit-button">
-        <a href="{{ route('word.edit', ['word' => $word]) }}">+</a>
-    </div> --}}
     @if(auth()->check() && Auth::user()->user_role_id == 2)
         <a class="add-button" href="#">+</a>
     @endif

@@ -12,7 +12,7 @@
 <body>
     <header class="dashboard-header">
         <div class="dashboard-header-logo">
-            <a href="{{ route('main.index') }}">Английский</a>
+            <a href="{{ route('main.index') }}">wordexamtest</a>
         </div>
         <div class="center-container">
             <form method="POST" action="{{ route('search.index')}}" class="search-form" onsubmit="return validateSearch()">
@@ -46,6 +46,7 @@
         <a href="{{ route('tags.index') }}" class="dashboard-button">Категории тестов</a>
         <a href="{{ route('wordtest.list') }}" class="dashboard-button">Ваши тесты</a>
         <a href="{{ route('user.index') }}" class="dashboard-button">Пользователи</a>
+        <a href="{{ route('statistics.index') }}" class="dashboard-button">Статистика</a>
         @auth
             <a href="{{ route('suggest.create') }}" class="dashboard-button">Предложить слово</a>
         @endauth
@@ -78,12 +79,6 @@
             } 
         }
 
-        // $('.select2').select2({
-        //     ajax: {
-        //         url: 'https://api.github.com/search/repositories',
-        //         dataType: 'json'
-        //     }
-        // });
         function myFunction() {
             var x = document.getElementById("myLinks");
             if (x.style.display === "block") {
@@ -91,7 +86,7 @@
             } else {
                 x.style.display = "block";
             }
-            }
+        }
     </script>
 </body>
 </html>

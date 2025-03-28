@@ -11,6 +11,9 @@ Route::name('main.')->group(function() {
 Route::prefix('users')->name('user.')->group(function(){
     Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('index');
     Route::get('show/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('show');
+    Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+    Route::patch('/', [App\Http\Controllers\UserController::class, 'update'])->name('update');
+    Route::delete('/', [App\Http\Controllers\UserController::class, 'destroy'])->name('delete');
 });
 
 Route::prefix('words')->name('word.')->group(function() {
@@ -53,4 +56,8 @@ Route::middleware('auth')->group(function() {
 
 Route::prefix('search')->name('search.')->group(function() {
     Route::post('/', [App\Http\Controllers\SearchController::class,'index'])->name('index');
+});
+
+Route::prefix('statistics')->name('statistics.')->group(function() {
+    Route::get('/', [App\Http\Controllers\StatisticsController::class, 'index'])->name('index');
 });

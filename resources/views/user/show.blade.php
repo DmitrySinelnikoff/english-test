@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 
+@section('title')
+    {{ $user->name }}
+@endsection
+
 @section('content')
 <div class="substrate">
     <div class="information-container">Имя: {{ $user->name }}</div>
@@ -9,6 +13,22 @@
     <div class="information-container">Кол-во пройденных тестов: {{ $user->userTestCount() }}</div>
     <div class="information-container">Правильных ответов: {{ $user->trueAnswerPercente() }}%</div>
 </div>
+@if (Auth::user()->id == $user->id)    
+    <div class="substrate">
+        <form action="{{ route('user.delete') }}" method="post" class="button-form" onsubmit="return validateDelete()">
+            @csrf
+            @method('delete')
+            <button type="submit" class="submit-button">
+                Удалить
+            </button>
+        </form>
+        <form action="{{ route('user.edit') }}" method="get" class="button-form">
+            <button type="submit" class="submit-button">
+                Изменить 
+            </button>
+        </form>
+    </div>
+@endif
 <div class="substrate">
     <h1>Последние тесты пользователя</h1>
     <div class="scroll-container" id="scroll-last-tests">

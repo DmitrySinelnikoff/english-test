@@ -474,6 +474,24 @@ button:hover {
     margin-top: 5px;
 }
 
+.statistic-card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+.statistic-card {
+    display: block;
+    height: auto;
+    margin-left: 4px;
+    margin-right: 8px;
+    margin-top: 12px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: rgb(230, 229, 229);;
+    font-size: 2rem;
+    color: black;
+}
+
 .search-form {
     z-index: 2;
     height: 100%;
