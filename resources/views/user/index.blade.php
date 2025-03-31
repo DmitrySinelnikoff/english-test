@@ -10,7 +10,10 @@
             <a href="{{ route('user.show', ['user' => $user]) }}">
                 <div class="word-card">
                     <span>
-                        {{ $user->name }}
+                        {{ \Illuminate\Support\Str::limit($user->name, 10) }}
+                    </span><br>
+                    <span>
+                        {{ $user->user_role_id == 1 ? 'Пользователь' : 'Администратор' }}
                     </span>
                 </div>
             </a>
@@ -19,7 +22,4 @@
     <div>
         {{ $users->links('pagination::bootstrap-4') }}
     </div>
-    @if(auth()->check() && Auth::user()->user_role_id == 2)
-        <a class="add-button" href="#">+</a>
-    @endif
 @endsection

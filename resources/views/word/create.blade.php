@@ -9,12 +9,12 @@
     <form action="{{ route('word.store') }}" method="post" class="auth-form">
         @csrf
         <label for="word">Слово</label>
-        <input type="text" name="word" id="word">
+        <input type="text" name="word" id="word" value="{{ old('word') }}">
         @error('word')
             <div>{{ $message }}</div>
         @enderror
         <label for="transcription">Транскрипция</label>
-        <input type="text" name="transcription" id="transcription">
+        <input type="text" name="transcription" id="transcription" value="{{ old('transcription') }}">
         @error('transcription')
             <div>{{ $message }}</div>
         @enderror
@@ -26,6 +26,9 @@
                 @endif
             @endforeach
         </select>
+        @error('tag_ids[]')
+            <div>{{ $message }}</div>
+        @enderror
         <label>Перевод</label>
         <select name="translate_id" class="select2">
             <option disabled selected value>---------</option>
@@ -35,6 +38,9 @@
                 @endforeach
             @endforeach
         </select>
+        @error('translate_id')
+            <div>{{ $message }}</div>
+        @enderror
         <div class="center-container">
             <button type="submit" class="submit-button">Добавить</button>   
         </div>

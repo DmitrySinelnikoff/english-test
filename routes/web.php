@@ -26,6 +26,18 @@ Route::prefix('words')->name('word.')->group(function() {
     Route::delete('/{word}', [App\Http\Controllers\WordController::class, 'destroy'])->name('delete');
 });
 
+Route::prefix('/russian')->name('russian.')->group(function() {
+    Route::prefix('words')->name('word.')->group(function() {
+        Route::get('/', [App\Http\Controllers\RussianWordController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\RussianWordController::class, 'create'])->name('create')->middleware('auth', 'admin');
+        Route::post('/store', [App\Http\Controllers\RussianWordController::class, 'store'])->name('store')->middleware('auth', 'admin');
+        Route::get('/{word}', [App\Http\Controllers\RussianWordController::class, 'show'])->name('show');
+        Route::get('/edit/{word}', [App\Http\Controllers\RussianWordController::class, 'edit'])->name('edit');
+        Route::patch('/{word}', [App\Http\Controllers\RussianWordController::class, 'update'])->name('update');
+        Route::delete('/{word}', [App\Http\Controllers\RussianWordController::class, 'destroy'])->name('delete');
+    });
+});
+
 Route::prefix('suggest')->name('suggest.')->group(function() {
     Route::get('/', [App\Http\Controllers\SuggestController::class, 'index'])->name('index');
     Route::get('/create', [App\Http\Controllers\SuggestController::class, 'create'])->name('create')->middleware('auth');

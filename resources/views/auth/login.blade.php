@@ -10,10 +10,14 @@
             @csrf
             <label for="email">Почта</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus><br>
-
+            @error('email')
+                <div>{{ $message }}</div>
+            @enderror
             <label for="password">Пароль</label>
             <input id="password" type="password" name="password" required autocomplete="current-password"><br>
-
+            @error('password')
+                <div>{{ $message }}</div>
+            @enderror
             <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
             <label for="remember" class="remember-me">Запомнить меня </label>
             <div class="center-container">

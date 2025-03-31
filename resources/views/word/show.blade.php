@@ -34,7 +34,7 @@
         <h1>Перевод</h1>
         <div class="scroll-container">
             @foreach ($word->translate as $translate)
-                <div class="card-gray">{{ $translate->word }}</div>
+                <a href="{{ route('russian.word.show', $translate) }}" class="card-gray">{{ $translate->word }}</a>
             @endforeach
         </div>
     </div>
@@ -42,7 +42,7 @@
         <h1>Категории</h1>
         <div class="scroll-container">
             @foreach ($word->tag as $tag)
-                <div class="card-gray">{{ $tag->name }}</div>
+                <a href="{{ route('tags.show', $tag) }}" class="card-gray">{{ $tag->name }}</a>
             @endforeach
         </div>
     </div>
@@ -66,6 +66,12 @@
     </div>
     <div class="substrate">
         <h1>Просмотров у слова: {{ $wordViewCount }}</h1>
+    </div>
+    <div class="substrate">
+        <div class="statistic-card-container">
+            <div class="statistic-card">Создание: {{ $word->created_at ?? 'Нет данных' }}</div>
+            <div class="statistic-card">Изменение: {{ $word->updated_at ?? 'Нет данных' }}</div>
+        </div>
     </div>
     <script>
         for(let i = 0; i < {{ count($results) }}; i++) {

@@ -42,7 +42,8 @@
     </header>
     <div class="dashboard-sidebar">
         <a href="{{ route('main.index') }}" class="dashboard-button">Главная</a>
-        <a href="{{ route('word.index') }}" class="dashboard-button">Слова</a>
+        <a href="{{ route('word.index') }}" class="dashboard-button">Английские слова</a>
+        <a href="{{ route('russian.word.index') }}" class="dashboard-button">Русские слова</a>
         <a href="{{ route('tags.index') }}" class="dashboard-button">Категории тестов</a>
         <a href="{{ route('wordtest.list') }}" class="dashboard-button">Ваши тесты</a>
         <a href="{{ route('user.index') }}" class="dashboard-button">Пользователи</a>

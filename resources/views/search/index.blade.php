@@ -13,10 +13,8 @@
     @endif
     <div class="scroll-container">
         @foreach ($englishWords as $englishWord)
-        <a href="{{ route('word.show', ['word' => $englishWord]) }}">
-            <div class="card-gray">
-                <div>{{ $englishWord->word }}</div>
-            </div>
+        <a href="{{ route('word.show', ['word' => $englishWord]) }}" class="card-gray">
+            {{ $englishWord->word }}
         </a>
         @endforeach
     </div>
@@ -29,9 +27,9 @@
     @endif
     <div class="scroll-container">
         @foreach ($russianWords as $russianWord)
-            <div class="card-gray">
-                <div>{{ $russianWord->word }}</div>
-            </div>
+            <a href="{{ route('russian.word.show', ['word' => $russianWord]) }}" class="card-gray">
+                {{ $russianWord->word }}
+            </a>
         @endforeach
     </div>
 </div>
@@ -43,10 +41,8 @@
     @endif
     <div class="scroll-container">
         @foreach ($tags as $tag)
-        <a href="{{ route('tags.index', ['tag' => $tag]) }}">
-            <div class="card-gray">
-                <div>{{ $tag->name }}</div>
-            </div>
+        <a href="{{ route('tags.show', ['tag' => $tag]) }}" class="card-gray">
+            {{ $tag->name }}
         </a>
         @endforeach
     </div>

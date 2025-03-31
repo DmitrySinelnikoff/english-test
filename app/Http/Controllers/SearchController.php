@@ -16,7 +16,7 @@ class SearchController extends Controller
 
         $englishWords = EnglishWord::where([['word','LIKE',"%{$search}%"], ['word_status_id', '=', 2]])->limit(10)->get();
         $russianWords = RussianWord::where('word','LIKE',"%{$search}%")->limit(10)->get();
-        $tags = Tag::where('name','LIKE','%{$search}%')->limit(10)->get();
+        $tags = Tag::where('name','LIKE',"%{$search}%")->limit(10)->get();
         
         return view('search.index', compact('englishWords', 'russianWords', 'tags'));
     }
