@@ -25,13 +25,11 @@
                     {{ 'Войти' }}
                 </button>
             </div>
-            {{-- <div class="center-container">
+            <div class="center-container">
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}">
-                        {{ 'Забыли пароль?' }}
-                    </a>
+                    <a href="{{ route('password.request') }}">Забыли пароль?</a>
                 @endif
-            </div> --}}
+            </div>
             <div class="center-container">
                 <a href="{{ route('register') }}">Регистрация</a>
             </div>

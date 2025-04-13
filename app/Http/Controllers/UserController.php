@@ -41,4 +41,11 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('main.index');
     }
+
+    public function home()
+    {
+        $user = Auth::user();
+        $tests = Test::where('user_id', $user->id)->orderBy('id', 'desc')->limit(10)->get();
+        return view('user.show', compact('tests', 'user'));
+    }
 }

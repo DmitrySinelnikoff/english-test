@@ -17,7 +17,10 @@
                 <a href="{{ route('wordtest.show', ['test' => $test, 'index' => 1]) }}">
                     <div class="test-card">
                         <div class="center-container">
-                            <div class="headtest-card">Тест №{{ $test->id }}</div>
+                            <div class="headtest-card">#{{ $test->id }}</div>
+                        </div>
+                        <div class="center-container">
+                            <div class="headtest-card">{{ $test->name }}</div>
                         </div>
                         @foreach($test->questions as $question)
                             <div class="concret-wordtest-card">

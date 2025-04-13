@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Suggest\StoreRequest;
+use App\Http\Requests\SuggestRequest;
+use App\Models\EnglishRussianWord;
 use App\Models\EnglishWord;
-use App\Models\RussianWord;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,18 +15,14 @@ class SuggestController extends Controller
     {
         $data = EnglishWord::where('word_status_id', 1)->get();
         return view('suggest.index', ['data'=>$data]);
-
     }
 
     public function create()
     {
-        $tags = Tag::all();
-        $russianWords = RussianWord::all();
-        return view('suggest.create', ['tags' => $tags, 'russianWords' => $russianWords]);
-
+        return view(view: 'suggest.create');
     }
 
-    public function store(StoreRequest $request)
+    public function store(SuggestRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -43,18 +39,18 @@ class SuggestController extends Controller
             }
 
             $translateWord = $data['translate_id'];
-            if(!is_numeric($translateWord)) {
-                $russiamWordId = RussianWord::firstOrCreate(['word'=>$translateWord]);
-                $translateWord = $russiamWordId->id;
-            }
-            $englishWord->translate()->attach($translateWord);
+            EnglishRussianWord::create([
+                'english_word_id' => $englishWord->id,
+                'russian_word_id' => $translateWord,
+                'part_of_speech_id' => $data['part_of_speech_id']
+            ]);
 
             DB::commit();
         } catch(\Exception $exeption) {
             DB::rollBack();
             abort(500);
         }
-        return redirect()->route('main.index');
+        return redirect()->route('home');
     }
 
     public function destroy(EnglishWord $word)

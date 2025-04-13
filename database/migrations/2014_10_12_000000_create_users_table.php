@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('image_path')->nullable();
             $table->foreignIdFor(UserRole::class)->constrained()->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();

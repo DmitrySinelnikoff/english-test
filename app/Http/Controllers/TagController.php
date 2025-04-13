@@ -20,7 +20,6 @@ class TagController extends Controller
     
     public function store(TagRequest $request)
     {
-        debugbar()->addMessage('hello');
         $data = $request->validated();
         Tag::firstOrCreate($data);
         return redirect()->route('tags.index');

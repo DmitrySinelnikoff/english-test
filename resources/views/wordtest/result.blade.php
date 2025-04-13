@@ -29,5 +29,8 @@
         </div>
     </div>
 </div>
+<div class="substrate">
+        <h1>Дата окончания теста: {{ $endDate->updated_at }}</h1>
+</div>
 
 @endsection

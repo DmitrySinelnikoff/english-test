@@ -12,7 +12,7 @@
 <body>
     <header class="dashboard-header">
         <div class="dashboard-header-logo">
-            <a href="{{ route('main.index') }}">wordexamtest</a>
+            <a href="{{ route('main') }}" class="white-text">wordexamtest</a>
         </div>
         <div class="center-container">
             <form method="POST" action="{{ route('search.index')}}" class="search-form" onsubmit="return validateSearch()">
@@ -24,7 +24,7 @@
         <div class="dashboard-header-nav">
             @auth
             <div class="dashboard-header-logo" id="accaunt">
-                <a href="{{ route('user.show', ['user' => Auth::user()]) }}">Аккаунт</a>
+                <a href="{{ route('home') }}" class="white-text">Аккаунт</a>
             </div>
             <div id="logout">
                 <form action="{{ route('logout') }}" method="POST">
@@ -35,24 +35,25 @@
             @endauth
             @guest
             <div class="dashboard-header-logo" id="auth">
-                <a href="{{ route('login') }}">Войти</a>
+                <a href="{{ route('login') }}" class="white-text">Войти</a>
             </div>
             @endguest
         </div>
     </header>
     <div class="dashboard-sidebar">
-        <a href="{{ route('main.index') }}" class="dashboard-button">Главная</a>
         <a href="{{ route('word.index') }}" class="dashboard-button">Английские слова</a>
         <a href="{{ route('russian.word.index') }}" class="dashboard-button">Русские слова</a>
         <a href="{{ route('tags.index') }}" class="dashboard-button">Категории тестов</a>
+        <a href="{{ route('part-of-speech.index') }}" class="dashboard-button">Части речи</a>
         <a href="{{ route('wordtest.list') }}" class="dashboard-button">Ваши тесты</a>
-        <a href="{{ route('user.index') }}" class="dashboard-button">Пользователи</a>
         <a href="{{ route('statistics.index') }}" class="dashboard-button">Статистика</a>
         @auth
             <a href="{{ route('suggest.create') }}" class="dashboard-button">Предложить слово</a>
+            <a href="{{ route('feedback.create') }}" class="dashboard-button">Обратная связь</a>
         @endauth
         @if(auth()->check() && Auth::user()->user_role_id == 2)
             <a href="{{ route('suggest.index') }}" class="dashboard-button">Предложенные слова</a>
+            <a href="{{ route('user.index') }}" class="dashboard-button">Пользователи</a>
         @endif
     </div>
     <div class="dashboard-body">
@@ -61,9 +62,7 @@
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/select2/js/select2.full.min.js') }}"></script>
     <script>
-        $('.select2').select2({
-            tags: true
-        })
+        @yield('script')
 
         $('#testForm').on('submit', function(e) {
             if($('input:checked').length === 0) {

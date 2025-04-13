@@ -33,8 +33,11 @@
     <div class="substrate">
         <h1>Перевод</h1>
         <div class="scroll-container">
-            @foreach ($word->translate as $translate)
-                <a href="{{ route('russian.word.show', $translate) }}" class="card-gray">{{ $translate->word }}</a>
+            @foreach ($word->translate as $key => $translate)
+                <a href="{{ route('russian.word.show', $translate) }}" class="card-gray">
+                    <div>{{ $translate->word }}</div>
+                    <div>{{ $partOfSpeech[$key] }}</div>
+                </a>
             @endforeach
         </div>
     </div>

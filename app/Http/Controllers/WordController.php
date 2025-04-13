@@ -3,26 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\WordRequest;
+use App\Models\EnglishRussianWord;
+use App\Models\PartOfSpeech;
 use App\Models\RussianWord;
 use App\Models\Tag;
 use App\Models\EnglishWord;
 use App\Models\TestQuestion;
 use App\Models\WordView;
+use Illuminate\Http\Request;
 use DB;
 
 class WordController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $words = EnglishWord::where('word_status_id', 2)->paginate(81);
+        $words = EnglishWord::where('word_status_id', 2);
+
+        if($request->has('sorter')){
+            switch($request->get('sorter')){
+                case 'old':
+                    $words = $words->orderBy('id', 'asc');
+                    break;
+                case 'new':
+                    $words = $words->orderBy('id', 'desc');
+                    break;
+            }
+        }
+        $words = $words->paginate(81);
+
         return view('word.index', compact('words'));
     }
 
     public function create()
     {
-        $tags = Tag::all();
-        $russianWords = RussianWord::all();
-        return view('word.create', compact('tags', 'russianWords'));
+        return view('word.create');
     }
 
     public function store(WordRequest $request)
@@ -42,18 +56,18 @@ class WordController extends Controller
             }
 
             $translateWord = $data['translate_id'];
-            if(!is_numeric($translateWord)) {
-                $russiamWordId = RussianWord::firstOrCreate(['word'=>$translateWord]);
-                $translateWord = $russiamWordId->id;
-            }
-            $englishWord->translate()->attach($translateWord);
+            EnglishRussianWord::create([
+                'english_word_id' => $englishWord->id,
+                'russian_word_id' => $translateWord,
+                'part_of_speech_id' => $data['part_of_speech_id']
+            ]);
 
             DB::commit();
         } catch(\Exception $exeption) {
             DB::rollBack();
             abort(500);
         }
-        return redirect()->route('word.index');
+        return redirect()->route('home');
     }
 
     public function show(EnglishWord $word)
@@ -64,12 +78,14 @@ class WordController extends Controller
 
         $results = [];
         $translates = $word->englishRussian()->get();
+        $partOfSpeech = collect();
+        $part = new PartOfSpeech();
         foreach($translates as $key => $translate){
             $testQuestion = TestQuestion::where('english_russian_word_id', $translate->id)->get();
             $testQuestionCount = $testQuestion->count();
             $trueAnswerCount = $testQuestion->where('result', 2)->count();
             $falseAnswerCount = $testQuestion->where('result', 1)->count();
-
+            
             $results[$key] = [
                 'englishWord' => $word->word,
                 'russianWord' => $translate->russianWord->word,
@@ -77,11 +93,12 @@ class WordController extends Controller
                 'trueAnswerCount' => $trueAnswerCount,
                 'falseAnswerCount' => $falseAnswerCount
             ];
+            $partOfSpeech->push($part->select('name')->where('id', $translate->part_of_speech_id)->get()->first()->name);
         }
         
         $wordViewCount = $word->wordView->count();
 
-        return view('word.show', compact('word', 'results', 'wordViewCount'));
+        return view('word.show', compact('word', 'results' , 'partOfSpeech', 'wordViewCount'));
     }
 
     public function edit(EnglishWord $word)

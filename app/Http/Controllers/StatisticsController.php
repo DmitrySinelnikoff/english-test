@@ -9,6 +9,7 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Models\WordView;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class StatisticsController extends Controller
 {
@@ -32,6 +33,15 @@ class StatisticsController extends Controller
         $data['viewsCount'] = WordView::count();
         $data['todayViewsCount'] = WordView::whereDate('created_at', Carbon::today())->count();
 
-        return view('statistics', compact('data'));
+        $tags = Tag::withCount('words')->get();
+        $views = WordView::mostShowed();
+
+        $viewed = [];
+        if(Auth::check() == true)
+        {
+            $viewed = User::viewed();
+        }
+
+        return view('statistics', compact('data', 'tags', 'views', 'viewed'));
     }
 }

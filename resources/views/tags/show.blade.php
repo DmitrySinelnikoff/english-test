@@ -5,13 +5,12 @@
 @endsection
 
 @section('content')
-        <div class="word-head-big">
-            <div class="center-container">
-                {{ $tag->name }} - {{ $tag->words->count() }}
-            </div>
-        </div>
-        @if(auth()->check() && auth()->user()->user_role_id == 2)
-            <div class="substrate">
+    <div class="word-head-big">
+        <div class="center-container">{{ $tag->name }}</div>
+    </div>
+    @if(auth()->check() && auth()->user()->user_role_id == 2)
+        <div class="substrate">
+            <div class="center-container small-gap">
                 <form action="{{ route('tags.delete', $tag) }}" method="post" class="button-form" onsubmit="return validateDelete()">
                     @csrf
                     @method('delete')
@@ -22,33 +21,46 @@
                     <button type="submit" class="submit-button">Изменить</button>
                 </form>
             </div>
-        @endif
-        @if($tag->words->count() > 9)
-            <div class="substrate">
-                <div class="center-container">
-                    <form action="{{ route('wordtest.index', ['tagId' => $tag, 'answer' => array()]) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="submit-button">
-                            Пройти тест
-                        </button>
-                    </form>
-                </div>
+        </div>
+    @endif
+    @if($tag->words->count() > 9)
+        <div class="substrate">
+            <div class="center-container small-gap">
+                <form action="{{ route('wordtest.index', ['tagId' => $tag]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="submit-button">
+                        Пройти тест английских слов
+                    </button>
+                </form>
+                <form action="{{ route('wordtest.index.russian', ['tagId' => $tag]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="submit-button">
+                        Пройти тест русских слов
+                    </button>
+                </form>
             </div>
-        @endif
-        @if($examplesTag->count())
-            <div class="substrate">
-                <h1>Слова из категории:</h1>
-                <div class="scroll-container">
-                    @foreach ($examplesTag as $word)
-                        <a href="{{ route('word.show', ['word' => $word]) }}">
-                            <div class="card-gray">
-                                <div>{{ $word->word }}</div>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
+        </div>
+    @endif
+    @if($examplesTag->count())
+        <div class="substrate">
+            <h1>Слова из категории:</h1>
+            <div class="scroll-container">
+                @foreach ($examplesTag as $word)
+                    <a href="{{ route('word.show', ['word' => $word]) }}">
+                        <div class="card-gray">
+                            <div>{{ $word->word }}</div>
+                        </div>
+                    </a>
+                @endforeach
             </div>
-        @endif
+        </div>
+    @endif
+    <div class="substrate">
+        <h1>Кол-во: {{ $tag->words->count() }}</h1>
+    </div>
+    <div class="substrate">
+        <h1>Создание: {{ $tag->created_at ?? 'Нет данных' }}</h1>
+    </div>
     <script>
         function validateDelete() {
             if(confirm('Вы хотите удалить этот тег?')) {

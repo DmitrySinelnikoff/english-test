@@ -5,14 +5,6 @@
 @endsection
 
 @section('content')
-    <script>
-        function preventBack() {
-            window.history.forward();
-        }
-
-        setTimeout("preventBack()", 0);
-        window.onunload = function () { null };
-    </script>
     <form id="testForm" action="{{ route('wordtest.index', ['tagId' => $tagId, 'answer' => $answer, 'word' => $test['original']->word]) }}" method="POST" class="test-container">
         @csrf
         <div class="head">

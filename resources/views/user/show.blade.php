@@ -6,6 +6,9 @@
 
 @section('content')
 <div class="substrate">
+    <div class="center-container">
+        <img src="{{ asset('img/avatars/' . ($user->image_path ?? 'unknown_avatar.jpg')) }}" alt="Аватар не найден" class="avatar-img">
+    </div>
     <div class="information-container">Имя: {{ $user->name }}</div>
     <div class="information-container">Почта: {{ $user->email }}</div>
     <div class="information-container">Роль: {{ $user->user_role_id == 1 ? 'Пользователь' : 'Администратор'}}</div>

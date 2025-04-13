@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\RussianWord;
 use App\Models\TestQuestion;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +17,7 @@ return new class extends Migration
         Schema::create('test_words', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(TestQuestion::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(RussianWord::class)->constrained()->onDelete('cascade');
+            $table->integer('word_id');
             $table->timestamps();
         });
     }

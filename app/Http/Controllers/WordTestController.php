@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EnglishRussianWord;
 use App\Models\EnglishWord;
 use App\Models\RussianWord;
 use App\Models\Tag;
@@ -23,6 +24,7 @@ class WordTestController extends Controller
             
             $test = Test::create([
                 "user_id" => $request->user()->id,
+                "test_type_id" => 1
             ]);
 
             for($questionsIndex = 0; $questionsIndex < 10; $questionsIndex++) {
@@ -39,11 +41,48 @@ class WordTestController extends Controller
                     $falseVariants = RussianWord::select('id')->where('word', '<>', $translate)->inRandomOrder()->first();
                     TestWord::create([
                         "test_question_id" => $question->id,
-                        "russian_word_id" => $falseVariants->id
+                        "word_id" => $falseVariants->id
                     ]);
                 }
             }
+            DB::commit();
+        } catch(\Exception $exeption) {
+            DB::rollBack();
+            abort(500);
+        }
+        
+        return redirect()->route('wordtest.show', ["test" => $test, "index" => 1]);
+    }
 
+    public function indexRussian(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $tagId = $request->tagId;
+            
+            $test = Test::create([
+                "user_id" => $request->user()->id,
+                "test_type_id" => 2
+            ]);
+
+            for($questionsIndex = 0; $questionsIndex < 10; $questionsIndex++) {
+                $word = Tag::select('id')->where('id', $tagId)->first()->words->random(1)->first()->englishRussian->first();
+                
+                $question = TestQuestion::create([
+                    "result" => 0,
+                    "test_id" => $test->id,
+                    "english_russian_word_id" => $word->id
+                ]);
+
+                for($falseVariantIndex = 0; $falseVariantIndex < 3; $falseVariantIndex++) {
+                    $falseVariants = EnglishRussianWord::select('id')->where('russian_word_id', '<>', $word->russian_word_id)->inRandomOrder()->first();
+                    TestWord::create([
+                        "test_question_id" => $question->id,
+                        "word_id" => $falseVariants->id
+                    ]);
+                }
+            }
             DB::commit();
         } catch(\Exception $exeption) {
             DB::rollBack();
@@ -75,14 +114,22 @@ class WordTestController extends Controller
         $variants = array(0,0,0,0);
         $trueVariantPosition = rand(0, 3);
 
-        $variants[$trueVariantPosition] = $russianWord;
+        if($test->test_type_id == 1) {
+            $variants[$trueVariantPosition] = $russianWord;
+        } else if($test->test_type_id == 2) {
+            $variants[$trueVariantPosition] = $englishWord;
+        }
 
         $variantsIndex = 0;
         foreach($falseVariant as $value) {
             if($variantsIndex == $trueVariantPosition)
                 $variantsIndex++;
 
-            $variants[$variantsIndex] = $value->russianWord->word;
+            if($test->test_type_id == 1) {
+                $variants[$variantsIndex] = EnglishRussianWord::where('id', $value->word_id)->first()->russianWord->word;
+            } else if($test->test_type_id == 2) {
+                $variants[$variantsIndex] = EnglishRussianWord::where('id', $value->word_id)->first()->englishWord->word;
+            }
             $variantsIndex++;
         }
 
@@ -95,7 +142,8 @@ class WordTestController extends Controller
             "trueVariantPosition"=> $trueVariantPosition,
             "thisQuestionPage" => $thisQuestionPage,
             "allQuestions" => TestQuestion::select('id', 'result')->where("test_id", $test->id)->get(),
-            "testStatus" => TestQuestion::where([['test_id', '=', $test->id], ['result', '=', '0']])->count() == 0 ? 1:0
+            "testStatus" => TestQuestion::where([['test_id', '=', $test->id], ['result', '=', '0']])->count() == 0 ? 1:0,
+            "testType" => $test->test_type_id
         ];
 
         return view('wordtest.show', compact('result'));
@@ -103,15 +151,20 @@ class WordTestController extends Controller
 
     public function list(Test $test)
     {
-        $tests = Test::where("user_id", Auth::user()->id)->orderBy("id", "desc")->paginate(12);
+        $tests = Test::select('tests.*', 'test_types.name')
+            ->join('test_types', 'tests.test_type_id', '=', 'test_types.id')
+            ->where("user_id", Auth::user()->id)
+            ->orderBy("id", "desc")
+            ->paginate(12);
         return view('wordtest.list', compact('tests'));
     }
 
     public function result(Test $test)
     {
         $results = TestQuestion::where('test_id', $test->id)->get();
-        $trueAnswerCount = $results->where('result', 2)->count(); 
-        return view('wordtest.result', ['results' => $results, 'trueAnswerCount' => $trueAnswerCount]);
+        $trueAnswerCount = $results->where('result', 2)->count();
+        $endDate = TestQuestion::where('test_id', $test->id)->orderBy('updated_at', 'desc')->first();
+        return view('wordtest.result', ['results' => $results, 'trueAnswerCount' => $trueAnswerCount, 'endDate' => $endDate]);
     }
 
     public function check(Request $request)

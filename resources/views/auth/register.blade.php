@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="substrate">
-        <form method="POST" class="auth-form" action="{{ route('register') }}">
+        <form method="POST" class="auth-form" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
             <label for="name">Имя</label>
             <input id="name" type="text" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -17,6 +17,12 @@
             <label for="email">Почта</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email">
             @error('email')
+                <div>{{ $message }}</div>
+            @enderror
+
+            <label for="avatar">Аватар</label>
+            <input id="avatar" type="file" name="avatar" value="{{ old('avatar') }}">
+            @error('avatar')
                 <div>{{ $message }}</div>
             @enderror
 

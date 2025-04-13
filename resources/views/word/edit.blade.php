@@ -38,8 +38,4 @@
         </div>
     </form>
 </div>
-
-<script>
-
-</script>
 @endsection

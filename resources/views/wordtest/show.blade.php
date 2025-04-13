@@ -9,7 +9,12 @@
 <form id="testForm" action="{{ route("wordtest.check", ["question" => $result["question"], "thisQuestionPage" => $result["thisQuestionPage"], "testID" => $result["testID"]]) }}" method="POST" class="test-container">
     @csrf  
     <div class="head">
-        {{ $result["thisQuestionPage"] }} - {{ $result["englishWord"] }}
+        {{ $result["thisQuestionPage"] }} - 
+        @if($result["testType"] == 1)
+            {{ $result["englishWord"] }}
+        @else
+            {{ $result["russianWord"] }}
+        @endif
         @if($result["question"]->result == 2)
             🟢
         @elseif($result["question"]->result == 1)
@@ -27,13 +32,13 @@
         @endforeach 
         <div class="center-container">
             @if($result['thisQuestionPage'] > 1)
-                <a class="navigate-button" href="/wordtest/show/{{$result['testID']}}/{{$result['thisQuestionPage'] - 1}}"><</a>
+                <a class="navigate-button white-text" href="/wordtest/show/{{$result['testID']}}/{{$result['thisQuestionPage'] - 1}}"><</a>
             @endif
             <button type="submit" class="submit-button" {{ $result['question']->result != 0 ? "disabled" : 0 }}>
                 Ответить
             </button>
             @if($result['thisQuestionPage'] < 10)
-                <a class="navigate-button" href="/wordtest/show/{{$result['testID']}}/{{$result['thisQuestionPage'] + 1}}">></a>
+                <a class="navigate-button white-text" href="/wordtest/show/{{$result['testID']}}/{{$result['thisQuestionPage'] + 1}}">></a>
             @endif
         </div>
         

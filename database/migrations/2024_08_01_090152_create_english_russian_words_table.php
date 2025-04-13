@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\EnglishWord;
+use App\Models\PartOfSpeech;
 use App\Models\RussianWord;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(EnglishWord::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(RussianWord::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(PartOfSpeech::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

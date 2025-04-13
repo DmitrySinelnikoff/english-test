@@ -171,7 +171,6 @@ a {
     border-radius: 20px;       /* закругления плашки */
 }
 
-
 @media screen and (max-width: 600px) {
     header {
         padding: 3%;
