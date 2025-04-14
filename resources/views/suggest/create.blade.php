@@ -51,25 +51,24 @@
 @section('script')
 $('#tags-select').select2({
     ajax: {
-        url: 'http://{{ Request::getHost() }}/api/tags', // URL вашего API
+        url: `${location.protocol}//${location.host}/api/tags`,
         dataType: 'json', // Ожидаемый формат данных
         delay: 250, // Задержка перед отправкой запроса (в миллисекундах)
         data: function (params) {
-            // Формируем параметры запроса, если нужно
+            
             return {
                 q: params.term || '', // Поисковый запрос (если есть)
                 page: params.page || 1 // Номер страницы (если используется пагинация)
             };
         },
         processResults: function (data, params) {
-            // Преобразуем данные в формат, подходящий для Select2
             return {
                 results: data.map(item => ({
                     id: item.id,
                     text: item.name
                 })),
                 pagination: {
-                    more: false // Если есть пагинация, укажите true/false
+                    more: false
                 }
             };
         },
@@ -81,25 +80,24 @@ $('#tags-select').select2({
 
 $('#translate-select').select2({
     ajax: {
-        url: 'http://{{ Request::getHost() }}/api/russian/words', // URL вашего API
+        url: `${location.protocol}//${location.host}/api/russian/words`,
         dataType: 'json', // Ожидаемый формат данных
         delay: 250, // Задержка перед отправкой запроса (в миллисекундах)
         data: function (params) {
-            // Формируем параметры запроса, если нужно
+            
             return {
                 q: params.term || '', // Поисковый запрос (если есть)
                 page: params.page || 1 // Номер страницы (если используется пагинация)
             };
         },
         processResults: function (data, params) {
-            // Преобразуем данные в формат, подходящий для Select2
             return {
                 results: data.map(item => ({
                     id: item.id,
                     text: item.word
                 })),
                 pagination: {
-                    more: false // Если есть пагинация, укажите true/false
+                    more: false
                 }
             };
         },
@@ -111,25 +109,24 @@ $('#translate-select').select2({
 
 $('#part-of-speech-select').select2({
     ajax: {
-        url: 'http://{{ Request::getHost() }}/api/parts/of/speech', // URL вашего API
+        url: `${location.protocol}//${location.host}/api/parts/of/speech`,
         dataType: 'json', // Ожидаемый формат данных
         delay: 250, // Задержка перед отправкой запроса (в миллисекундах)
         data: function (params) {
-            // Формируем параметры запроса, если нужно
+            
             return {
                 q: params.term || '', // Поисковый запрос (если есть)
                 page: params.page || 1 // Номер страницы (если используется пагинация)
             };
         },
         processResults: function (data, params) {
-            // Преобразуем данные в формат, подходящий для Select2
             return {
                 results: data.map(item => ({
                     id: item.id,
                     text: item.name
                 })),
                 pagination: {
-                    more: false // Если есть пагинация, укажите true/false
+                    more: false
                 }
             };
         },
