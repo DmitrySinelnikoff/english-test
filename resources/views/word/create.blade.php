@@ -51,7 +51,7 @@
 @section('script')
 $('#tags-select').select2({
     ajax: {
-        url: 'http://english.learn:8000/api/tags', // URL вашего API
+        url: 'http://{{ Request::getHost() }}/api/tags', // URL вашего API
         dataType: 'json', // Ожидаемый формат данных
         delay: 250, // Задержка перед отправкой запроса (в миллисекундах)
         data: function (params) {
@@ -81,7 +81,7 @@ $('#tags-select').select2({
 
 $('#translate-select').select2({
     ajax: {
-        url: 'http://english.learn:8000/api/russian/words', // URL вашего API
+        url: 'http://{{ Request::getHost() }}/api/russian/words', // URL вашего API
         dataType: 'json', // Ожидаемый формат данных
         delay: 250, // Задержка перед отправкой запроса (в миллисекундах)
         data: function (params) {
@@ -111,7 +111,7 @@ $('#translate-select').select2({
 
 $('#part-of-speech-select').select2({
     ajax: {
-        url: 'http://english.learn:8000/api/parts/of/speech', // URL вашего API
+        url: 'http://{{ Request::getHost() }}/api/parts/of/speech', // URL вашего API
         dataType: 'json', // Ожидаемый формат данных
         delay: 250, // Задержка перед отправкой запроса (в миллисекундах)
         data: function (params) {
