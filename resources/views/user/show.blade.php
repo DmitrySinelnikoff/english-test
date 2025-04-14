@@ -82,5 +82,13 @@
 
     checkAndUpdateContent(document.getElementById('scroll-bad-answer'));
     checkAndUpdateContent(document.getElementById('scroll-last-tests'));
+
+    function validateDelete() {
+        if(confirm('Вы хотите удалить аккаунт?')) {
+            return true
+        } else {
+            return false
+        }
+    }
 </script>
 @endsection

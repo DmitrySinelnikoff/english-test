@@ -74,7 +74,7 @@ Route::prefix('wordtest')->name('wordtest.')->middleware('auth')->group(function
 Route::prefix('feedback')->name('feedback.')->middleware(['auth'])->group(function(){
     Route::get('/', [App\Http\Controllers\FeedbackController::class, 'index'])->name('index');
     Route::get('/create', [App\Http\Controllers\FeedbackController::class, 'create'])->name('create');
-    Route::post('/store', [App\Http\Controllers\FeedbackController::class, 'store'])->name('store')->middleware('admin');
+    Route::post('/store', [App\Http\Controllers\FeedbackController::class, 'store'])->name('store');
     Route::get('/{feedback}', [App\Http\Controllers\FeedbackController::class, 'show'])->name('show')->middleware('admin');
     Route::delete('/{feedback}', [App\Http\Controllers\FeedbackController::class, 'destroy'])->name('delete')->middleware('admin');
 });

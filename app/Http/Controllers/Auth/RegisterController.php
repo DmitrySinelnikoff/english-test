@@ -46,9 +46,17 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $fileName = isset($data['avatar']) ? time() . mt_rand() . '.' . $data['avatar']->extension() : NULL;
-        if($fileName != null) $data['avatar']->move(public_path('img/avatars'), $fileName);
+        if($fileName != null) {
+            $data['avatar']->move(public_path('img/avatars'), $fileName);
+        }
 
-        dispatch(new HelloEmailJob($data));
+        $emailData = [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'image_path' => $fileName,
+        ];
+
+        dispatch(new HelloEmailJob($emailData));
         
         return User::create([
             'name' => $data['name'],
