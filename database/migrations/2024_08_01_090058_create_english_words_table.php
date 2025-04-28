@@ -19,7 +19,6 @@ return new class extends Migration
             $table->id();
             $table->string('word');
             $table->string('transcription');
-            $table->string('image_path')->nullable();
             $table->foreignIdFor(WordStatus::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });

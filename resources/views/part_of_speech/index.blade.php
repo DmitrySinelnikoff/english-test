@@ -5,15 +5,16 @@
 @endsection
 
 @section('content')
-    @foreach ($partsOfSpeech as $partOfSpeech)
-        <div class="word-container">
+    <div class="cards-container">
+        @foreach ($partsOfSpeech as $partOfSpeech)
             <a href="{{ route('part-of-speech.show', ['partOfSpeech' => $partOfSpeech]) }}">
-                <div class="word-card">
-                    <span>
+                <div class="card">
+                    <img src="{{ asset('img/words/word-pattern.jpg') }}" alt="Ошибка">
+                    <div class="text-string">
                         {{ $partOfSpeech->name }}
-                    </span>
+                    </div>
                 </div>
             </a>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
 @endsection

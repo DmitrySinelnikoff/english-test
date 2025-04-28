@@ -11,7 +11,13 @@ class RussianWord extends Model
 
     protected $guarded = false;
 
-    public function original() {
+    public function original()
+    {
         return $this->belongsToMany(EnglishWord::class, 'english_russian_words');
+    }
+
+    public function englishRussian()
+    {
+        return $this->hasMany(EnglishRussianWord::class);
     }
 }

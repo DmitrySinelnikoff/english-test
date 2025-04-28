@@ -29,7 +29,9 @@ class WordController extends Controller
                     break;
             }
         }
-        $words = $words->paginate(81);
+        $words = $words->paginate(10);
+
+        if(isset($_GET['page'])) $_GET['page'] = 1;
 
         return view('word.index', compact('words'));
     }

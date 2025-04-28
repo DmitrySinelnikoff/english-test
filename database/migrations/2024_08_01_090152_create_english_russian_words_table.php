@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(EnglishWord::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(RussianWord::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(PartOfSpeech::class)->constrained()->onDelete('cascade');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

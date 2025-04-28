@@ -65,6 +65,9 @@ Route::prefix('tags')->name('tags.')->group(function() {
 Route::prefix('wordtest')->name('wordtest.')->middleware('auth')->group(function() {
     Route::post('/test', [App\Http\Controllers\WordTestController::class, 'index'])->name('index');
     Route::post('/test/russian', [App\Http\Controllers\WordTestController::class, 'indexRussian'])->name('index.russian');
+    Route::post('/test/transcription', [App\Http\Controllers\WordTestController::class, 'indexTranscription'])->name('index.transcription');
+    Route::post('/test/photo', [App\Http\Controllers\WordTestController::class, 'indexPhoto'])->name('index.photo');
+    Route::post('/test/part', [App\Http\Controllers\WordTestController::class, 'indexPart'])->name('index.part');
     Route::get('/show/{test}/{index}', [App\Http\Controllers\WordTestController::class, 'show'])->name('show');
     Route::get('/list', [App\Http\Controllers\WordTestController::class, 'list'])->name('list');
     Route::post('/check', [App\Http\Controllers\WordTestController::class, 'check'])->name('check');

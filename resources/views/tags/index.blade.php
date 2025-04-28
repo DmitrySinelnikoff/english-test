@@ -5,21 +5,21 @@
 @endsection
 
 @section('content')
-    @foreach ($tags as $tag)
-        <div class="word-container">
+    <div class="cards-container">
+        @foreach ($tags as $tag)
             <a href="{{ route('tags.show', ['tag' => $tag]) }}">
-                <div class="word-card">
-                    <span>
+                <div class="card">
+                    <img src="{{ asset('img/words/word-pattern.jpg') }}" alt="Ошибка">
+                    <div class="text-string">
                         {{ $tag->name }}
-                    </span>
-                    <br>
-                    <span>
-                        {{ $tag->words->count() }}
-                    </span>
+                    </div>
+                    <div class="text-string">
+                        Кол-во: {{ $tag->words->count() }}
+                    </div>
                 </div>
             </a>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
     <div>
         {{ $tags->links('pagination::bootstrap-4') }}
     </div>

@@ -12,8 +12,14 @@
         {{ $result["thisQuestionPage"] }} - 
         @if($result["testType"] == 1)
             {{ $result["englishWord"] }}
-        @else
+        @elseif($result["testType"] == 2)
             {{ $result["russianWord"] }}
+        @elseif($result["testType"] == 3)
+            {{ $result["transcription"] }}
+        @elseif($result["testType"] == 4)
+            <img src="{{ asset('img/words/' . ($result["photo"] ?? 'word-pattern.jpg')) }}" alt="Изображение не найдено" class="avatar-img">
+        @elseif($result["testType"] == 5)
+            {{ $result["englishWord"] }} - {{ $result["russianWord"] }}
         @endif
         @if($result["question"]->result == 2)
             🟢

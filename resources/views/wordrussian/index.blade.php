@@ -5,21 +5,23 @@
 @endsection
 
 @section('content')
-        @foreach ($words as $word)
-            <div class="word-container">
+    <div class="cards-container">
+            @foreach ($words as $word)
                 <a href="{{ route('russian.word.show', ['word' => $word]) }}">
-                    <div class="word-card">
-                        <span>
-                            {{ \Illuminate\Support\Str::limit($word->word, 10) }}
-                        </span>
-                        <br>
-                        <span>
-                            {{ \Illuminate\Support\Str::limit($word->original->first()->word ?? 'Нет данных', 10) }}
-                        </span>
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="{{ asset('img/words/' . ($word->englishRussian->first()->image_path ?? 'word-pattern.jpg')) }}" alt="Изображение не найдено">
+                        </div>
+                        <div class="text-string">
+                            {{ \Illuminate\Support\Str::limit($word->word, 25) }}
+                        </div>
+                        <div class="text-string">
+                            {{ \Illuminate\Support\Str::limit($word->original->first()->word ?? 'Нет данных', 25) }}
+                        </div>
                     </div>
                 </a>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
         <div>
             {{ $words->links('pagination::bootstrap-4') }}
         </div>

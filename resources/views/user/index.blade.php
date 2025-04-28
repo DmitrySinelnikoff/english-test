@@ -5,20 +5,24 @@
 @endsection
 
 @section('content')
-    @foreach ($users as $user)
-        <div class="word-container">
+    <div class="cards-container">
+        @foreach ($users as $user)
             <a href="{{ route('user.show', ['user' => $user]) }}">
-                <div class="word-card">
-                    <span>
+                <div class="card">
+                    <img
+                        src="{{ asset('img/avatars/' . ($user->image_path ?? 'unknown_avatar.jpg')) }}"
+                        alt="Аватар не найден" class="avatar-img"
+                    >
+                    <div class="text-string">
                         {{ \Illuminate\Support\Str::limit($user->name, 10) }}
-                    </span><br>
-                    <span>
+                    </div>
+                    <div class="text-string">
                         {{ $user->user_role_id == 1 ? 'Пользователь' : 'Администратор' }}
-                    </span>
+                    </div>
                 </div>
             </a>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
     <div>
         {{ $users->links('pagination::bootstrap-4') }}
     </div>

@@ -29,21 +29,43 @@
                 <form action="{{ route('wordtest.index', ['tagId' => $tag]) }}" method="POST">
                     @csrf
                     <button type="submit" class="submit-button">
-                        Пройти тест английских слов
+                        Тест английских слов
                     </button>
                 </form>
                 <form action="{{ route('wordtest.index.russian', ['tagId' => $tag]) }}" method="POST">
                     @csrf
                     <button type="submit" class="submit-button">
-                        Пройти тест русских слов
+                        Тест русских слов
+                    </button>
+                </form>
+                <form action="{{ route('wordtest.index.transcription', ['tagId' => $tag]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="submit-button">
+                        Тест транскрипций
+                    </button>
+                </form>
+                <form action="{{ route('wordtest.index.photo', ['tagId' => $tag]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="submit-button">
+                        Тест фотографий
+                    </button>
+                </form>
+                <form action="{{ route('wordtest.index.part', ['tagId' => $tag]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="submit-button">
+                        Тест частей речи
                     </button>
                 </form>
             </div>
         </div>
     @endif
+    <div class="substrate">
+        <h1>Описание</h1>
+        <div class="text">{{ $tag->description }}</div>
+    </div>
     @if($examplesTag->count())
         <div class="substrate">
-            <h1>Слова из категории:</h1>
+            <h1>Слова из категории</h1>
             <div class="scroll-container">
                 @foreach ($examplesTag as $word)
                     <a href="{{ route('word.show', ['word' => $word]) }}">

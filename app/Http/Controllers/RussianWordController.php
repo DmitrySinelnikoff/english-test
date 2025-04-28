@@ -9,7 +9,7 @@ class RussianWordController extends Controller
 {
     public function index()
     {
-        $words = RussianWord::paginate(81);
+        $words = RussianWord::paginate(10);
         return view('wordrussian.index', compact('words'));
     }
 

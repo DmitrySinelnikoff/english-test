@@ -5,31 +5,31 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('word.index') }}" method="GET">
-        <div class="toolbar-sorter">
-            <span>По дате</span>
+    <form action="{{ route('word.index') }}" method="GET" class="sort-menu">
+        <span>По дате добавления</span>
             <select name="sorter" id="sorter" class="sorter-options" style="width:150px; " data-role="sorter">
                 <option value='old'>Старые</option>
                 <option value='new'>Новые</option>
             </select>
-            <button type="submit">Сортировать</button>
-        </div>
+        <button type="submit">Сортировать</button>
     </form>
-    @foreach ($words as $word)
-        <div class="word-container">
-            <a href="{{ route('word.show', ['word' => $word]) }}">
-                <div class="word-card">
-                    <span>
-                        {{ $word->word }}
-                    </span>
-                    <br>
-                    <span>
-                        {{ \Illuminate\Support\Str::limit($word->translate->first()->word, 10) }}
-                    </span>
-                </div>
-            </a>
-        </div>
-    @endforeach
+    <div class="cards-container">
+        @foreach ($words as $word)
+                <a href="{{ route('word.show', ['word' => $word]) }}">
+                    <div class="card">
+                        <div class="image-container">
+                            <img src="{{ asset('img/words/' . ($word->englishRussian->first()->image_path ?? 'word-pattern.jpg')) }}" alt="Изображение не найдено">
+                        </div>
+                        <div class="text-string">
+                            {{ \Illuminate\Support\Str::limit($word->word, 25) }}
+                        </div>
+                        <div class="text-string">
+                            {{ \Illuminate\Support\Str::limit($word->translate->first()->word, 25) }}
+                        </div>
+                    </div>
+                </a>
+        @endforeach
+    </div>
     <div>
         {{ $words->links('pagination::bootstrap-4') }}
     </div>

@@ -37,11 +37,11 @@
     <div class="scroll-container" id="scroll-last-tests">
         @foreach ($tests as $index => $test)
             <a href="{{ route('wordtest.show', ['test' => $test, 'index' => 1]) }}">
-                <div class="test-card">
+                <div class="card-gray">
                     <div class="center-container">
                         <div class="headtest-card">Тест №{{ $test->id }}</div>
                     </div>
-                    @foreach($test->questions as $question)
+                    {{-- @foreach($test->questions as $question)
                         <div class="concret-wordtest-card">
                             @if($question->result == 2)
                                 🟢
@@ -52,7 +52,7 @@
                             @endif
                             {{ $question->wordCombination->englishWord->word }}
                         </div>
-                    @endforeach
+                    @endforeach --}}
                 </div>
             </a>
         @endforeach

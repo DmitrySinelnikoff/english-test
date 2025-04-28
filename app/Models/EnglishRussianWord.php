@@ -26,4 +26,8 @@ class EnglishRussianWord extends Model
         return $this->hasMany(TestQuestion::class);
     }
 
+    public function partOfSpeech()
+    {
+        return $this->hasOne(PartOfSpeech::class, "id", "part_of_speech_id");
+    }
 }
