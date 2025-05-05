@@ -20,7 +20,7 @@
                 <input type="submit" value="🔍" class="search-button">
             </form>
         </div>
-        <div class="dashboard-header-nav">
+        <div class="dashboard-header-nav" id="nav-menu">
             @auth
             <div class="dashboard-header-logo" id="accaunt">
                 <a href="{{ route('home') }}" class="white-text">Аккаунт</a>
@@ -39,6 +39,8 @@
             @endguest
         </div>
     </header>
-    @yield('content')
+    <div class="about-body">
+        @yield('content')
+    </div>
 </body>
 </html>

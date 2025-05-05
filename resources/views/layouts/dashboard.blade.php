@@ -21,7 +21,7 @@
                 <input type="submit" value="🔍" class="search-button">
             </form>
         </div>
-        <div class="dashboard-header-nav">
+        <div class="dashboard-header-nav" id="nav-menu">
             @auth
             <div class="dashboard-header-logo" id="accaunt">
                 <a href="{{ route('home') }}" class="white-text">Аккаунт</a>
@@ -39,8 +39,9 @@
             </div>
             @endguest
         </div>
+        <div class="dashboard-header-logo mobile-button click" id="mobile-menu">︙</div>
     </header>
-    <div class="dashboard-sidebar">
+    <div class="dashboard-sidebar" id="sidebar">
         <a href="{{ route('word.index') }}" class="dashboard-button">Английские слова</a>
         <a href="{{ route('russian.word.index') }}" class="dashboard-button">Русские слова</a>
         <a href="{{ route('tags.index') }}" class="dashboard-button">Категории тестов</a>
@@ -79,14 +80,10 @@
             } 
         }
 
-        function myFunction() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "block";
-            }
-        }
+        let mobileButton = document.getElementById('mobile-menu');
+        mobileButton.addEventListener('click', function(menuClick) {
+            document.getElementById('sidebar').classList.toggle('dashboard-sidebar-open');
+        })
     </script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LetterEnum;
 use App\Http\Requests\WordRequest;
 use App\Models\EnglishRussianWord;
 use App\Models\PartOfSpeech;
@@ -19,8 +20,8 @@ class WordController extends Controller
     {
         $words = EnglishWord::where('word_status_id', 2);
 
-        if($request->has('sorter')){
-            switch($request->get('sorter')){
+        if($request->has('time')){
+            switch($request->get('time')){
                 case 'old':
                     $words = $words->orderBy('id', 'asc');
                     break;
@@ -29,11 +30,18 @@ class WordController extends Controller
                     break;
             }
         }
-        $words = $words->paginate(10);
+
+        if($request->has('letter')){
+            $words = $words->where('word', 'LIKE', $request->get('letter') . '%');
+        }
+
+        $words = $words->paginate(10)->appends(request()->query());
+
+        $letters = LetterEnum::cases();
 
         if(isset($_GET['page'])) $_GET['page'] = 1;
 
-        return view('word.index', compact('words'));
+        return view('word.index', compact('words', 'letters'));
     }
 
     public function create()

@@ -9,11 +9,13 @@
     <div class="about-card-text">
         Английский легко с WordExamTest!
     </div>
-    <a href="{{ route('register') }}" class="about-card-button">
-        Регистрация
-    </a>
-    <a href="{{ route('login') }}" class="about-card-button">
-        Начать
-    </a>
+    <div class="about-button-container">
+        <a href="{{ route('register') }}" class="about-card-button">
+            Регистрация
+        </a>
+        <a href="{{ route('login') }}" class="about-card-button">
+            Начать
+        </a>
+    </div>
 </div>
 @endsection

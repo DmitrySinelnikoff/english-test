@@ -4,13 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RussianWordRequest;
 use App\Models\RussianWord;
+use App\Enums\RussianLetterEnum;
+use Illuminate\Http\Request;
 
 class RussianWordController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $words = RussianWord::paginate(10);
-        return view('wordrussian.index', compact('words'));
+        $words = new RussianWord();
+
+        if($request->has('time')){
+            switch($request->get('time')){
+                case 'old':
+                    $words = $words->orderBy('id', 'asc');
+                    break;
+                case 'new':
+                    $words = $words->orderBy('id', 'desc');
+                    break;
+            }
+        }
+
+        if($request->has('letter')){
+            $words = $words->where('word', 'LIKE', $request->get('letter') . '%');
+        }
+
+        $words = $words->paginate(10)->appends(request()->query());
+
+        $letters = RussianLetterEnum::cases();
+
+        if(isset($_GET['page'])) $_GET['page'] = 1;
+
+        return view('wordrussian.index', compact('words', 'letters'));
     }
 
     public function create()

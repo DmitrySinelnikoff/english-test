@@ -7,10 +7,17 @@
 @section('content')
     <form action="{{ route('word.index') }}" method="GET" class="sort-menu">
         <span>По дате добавления</span>
-            <select name="sorter" id="sorter" class="sorter-options" style="width:150px; " data-role="sorter">
-                <option value='old'>Старые</option>
-                <option value='new'>Новые</option>
-            </select>
+        <select name="time" id="sorter" class="sorter-options" style="width:150px; " data-role="sorter">
+            <option value='old' {{ 'old' == request('time')?'selected':'' }}>Старые</option>
+            <option value='new' {{ 'new' == request('time')?'selected':'' }}>Новые</option>
+        </select>
+        <span>Буква</span>
+        <select name="letter" id="letter" class="sorter-options" style="width:150px; " data-role="sorter">
+            <option disabled selected value>Буквы</option>
+            @foreach ($letters as $letter)
+                <option value='{{ $letter->name }}' {{ $letter->value == request('letter')?'selected':'' }}>{{ $letter->value }}</option>
+            @endforeach
+        </select>
         <button type="submit">Сортировать</button>
     </form>
     <div class="cards-container">
