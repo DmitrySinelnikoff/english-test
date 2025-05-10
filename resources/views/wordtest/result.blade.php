@@ -25,12 +25,14 @@
                 </tr>
                 @endforeach
             </table>
-            <input class="submit-button" type="button" value="Напечатать результат" onClick="window.print()" />
+            <div class="center-container">
+                <input class="submit-button" type="button" value="Напечатать результат" onClick="window.print()" />
+            </div>
         </div>
     </div>
 </div>
 <div class="substrate">
-        <h1>Дата окончания теста: {{ $endDate->updated_at }}</h1>
+    <h1>Дата окончания теста: {{ $endDate->updated_at }}</h1>
 </div>
 
 @endsection

@@ -18,18 +18,20 @@
 </div>
 @if (Auth::user()->id == $user->id)    
     <div class="substrate">
-        <form action="{{ route('user.delete') }}" method="post" class="button-form" onsubmit="return validateDelete()">
-            @csrf
-            @method('delete')
-            <button type="submit" class="submit-button">
-                Удалить
-            </button>
-        </form>
-        <form action="{{ route('user.edit') }}" method="get" class="button-form">
-            <button type="submit" class="submit-button">
-                Изменить 
-            </button>
-        </form>
+        <div class="center-container small-gap">
+            <form action="{{ route('user.delete') }}" method="post" class="button-form" onsubmit="return validateDelete()">
+                @csrf
+                @method('delete')
+                <button type="submit" class="submit-button">
+                    Удалить
+                </button>
+            </form>
+            <form action="{{ route('user.edit') }}" method="get" class="button-form">
+                <button type="submit" class="submit-button">
+                    Изменить 
+                </button>
+            </form>
+        </div>
     </div>
 @endif
 <div class="substrate">
@@ -41,18 +43,6 @@
                     <div class="center-container">
                         <div class="headtest-card">Тест №{{ $test->id }}</div>
                     </div>
-                    {{-- @foreach($test->questions as $question)
-                        <div class="concret-wordtest-card">
-                            @if($question->result == 2)
-                                🟢
-                            @elseif($question->result == 1)
-                                🔴
-                            @else
-                                🔵
-                            @endif
-                            {{ $question->wordCombination->englishWord->word }}
-                        </div>
-                    @endforeach --}}
                 </div>
             </a>
         @endforeach

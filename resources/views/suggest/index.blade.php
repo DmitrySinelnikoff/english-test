@@ -12,7 +12,6 @@
         <th>Тег</th>
         <th>Перевод</th>
         <th>Удалить</th>
-        <th>Изменить</th>
         <th>Одобрить</th>
     </tr>
     @foreach ($data as $word)
@@ -30,15 +29,14 @@
             @endforeach
         </td>
         <td>
-            <form action="{{ route('suggest.delete', $word->id) }}" method="POST">
+            <form action="{{ route('suggest.delete', $word->id) }}" method="POST" onsubmit="return validateDelete()">
                 @csrf
                 @method('DELETE')
                 <button type="submit" style="font-size: 25pt">🗑</button>
             </form>
         </td>
-        <td><a href="#">✏️</a></td>
         <td>
-            <form action="{{ route('suggest.approved', $word->id) }}" method="POST">
+            <form action="{{ route('suggest.approved', $word->id) }}" method="POST" onsubmit="return validateApprove()">
                 @csrf
                 @method('PATCH')
                 <button type="submit" style="font-size: 25pt">✔</button>
@@ -47,4 +45,21 @@
     </tr>
     @endforeach
 </table>
+@endsection
+
+@section('script')
+function validateDelete() {
+    if(confirm('Вы хотите удалить слово?')) {
+        return true
+    } else {
+        return false
+    }
+}
+function validateApprove() {
+    if(confirm('Вы хотите одобрить слово?')) {
+        return true
+    } else {
+        return false
+    }
+}
 @endsection

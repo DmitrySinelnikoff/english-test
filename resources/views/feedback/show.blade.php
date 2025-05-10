@@ -13,13 +13,15 @@
         <textarea class="textarea-card">{{ $feedback->text }}</textarea>
     </div>
     <div class="substrate">
-        <form action="{{ route('feedback.delete', $feedback) }}" method="post" class="button-form" onsubmit="return validateDelete()">
-            @csrf
-            @method('delete')
-            <button type="submit" class="submit-button">
-                Удалить
-            </button>
-        </form>
+        <div class="center-container">
+            <form action="{{ route('feedback.delete', $feedback) }}" method="post" class="button-form" onsubmit="return validateDelete()">
+                @csrf
+                @method('delete')
+                <button type="submit" class="submit-button">
+                    Удалить
+                </button>
+            </form>
+        </div>
     </div>
     <div class="substrate">
         <h1>Создание: {{ $feedback->created_at ?? 'Нет данных' }}</h1>

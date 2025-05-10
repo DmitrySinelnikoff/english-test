@@ -31,8 +31,20 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $data = $request->validated();
-        $user->update($data);
-        return redirect()->route('user.show', ['user' => Auth::user()]);
+
+        $fileName = isset($data['avatar']) ? time() . mt_rand() . '.' . $data['avatar']->extension() : NULL;
+        if($fileName != null) {
+            $data['avatar']->move(public_path('img/avatars'), $fileName);
+        }
+        
+        $updateData = [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'image_path' => $fileName,
+        ];
+        
+        $user->update($updateData);
+        return redirect()->route('home.show', compact('user'));
     }
 
     public function destroy()

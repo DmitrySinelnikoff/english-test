@@ -12,19 +12,21 @@
     </div>
     @if(auth()->check() && auth()->user()->user_role_id == 2)
         <div class="substrate">
-            <form action="{{ route('word.delete', $word) }}" method="post" class="button-form" onsubmit="return validateDelete()">
-                @csrf
-                @method('delete')
-                <button type="submit" class="submit-button">
-                    Удалить
-                </button>
-            </form>
-            <form action="{{ route('word.edit', $word) }}" method="get" class="button-form">
-                @csrf
-                <button type="submit" class="submit-button">
-                   Изменить 
-                </button>
-            </form>
+            <div class="center-container small-gap">
+                <form action="{{ route('word.delete', $word) }}" method="post" class="button-form" onsubmit="return validateDelete()">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="submit-button">
+                        Удалить
+                    </button>
+                </form>
+                <form action="{{ route('word.edit', $word) }}" method="get" class="button-form">
+                    @csrf
+                    <button type="submit" class="submit-button">
+                       Изменить 
+                    </button>
+                </form>
+            </div>
         </div>
     @endif
     <div class="substrate">

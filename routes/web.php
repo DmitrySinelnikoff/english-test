@@ -6,7 +6,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('main');
 
-Route::get('/home', [App\Http\Controllers\UserController::class, 'home'])->name('home')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\UserController::class, 'home'])->name('home.show');
 
 Route::prefix('api')->name('api.')->group(function() {
     Route::get('/tags', [App\Http\Controllers\Api\TagController::class, 'index'])->name('index');
@@ -14,12 +14,16 @@ Route::prefix('api')->name('api.')->group(function() {
     Route::get('/parts/of/speech', [App\Http\Controllers\Api\PartOfSpeechController::class, 'index'])->name('index');
 });
 
-Route::prefix('users')->name('user.')->middleware(['auth', 'admin'])->group(function(){
-    Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('index');
-    Route::get('show/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('show');
-    Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
-    Route::patch('/', [App\Http\Controllers\UserController::class, 'update'])->name('update');
-    Route::delete('/', [App\Http\Controllers\UserController::class, 'destroy'])->name('delete');
+Route::prefix('users')->name('user.')->group(function(){
+    Route::middleware(['auth', 'admin'])->group(function() {
+        Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('index');
+        Route::get('show/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('show');
+        Route::delete('/', [App\Http\Controllers\UserController::class, 'destroy'])->name('delete');
+    });
+    Route::middleware('auth')->group(function() {
+        Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+        Route::patch('/', [App\Http\Controllers\UserController::class, 'update'])->name('update');
+    });
 });
 
 Route::prefix('words')->name('word.')->group(function() {

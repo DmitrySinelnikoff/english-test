@@ -50,7 +50,7 @@ class SuggestController extends Controller
             DB::rollBack();
             abort(500);
         }
-        return redirect()->route('home');
+        return redirect()->route('home.show');
     }
 
     public function destroy(EnglishWord $word)

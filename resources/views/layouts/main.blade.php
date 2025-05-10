@@ -23,7 +23,7 @@
         <div class="dashboard-header-nav" id="nav-menu">
             @auth
             <div class="dashboard-header-logo" id="accaunt">
-                <a href="{{ route('home') }}" class="white-text">Аккаунт</a>
+                <a href="{{ route('home.show') }}" class="white-text">Аккаунт</a>
             </div>
             <div id="logout">
                 <form action="{{ route('logout') }}" method="POST">

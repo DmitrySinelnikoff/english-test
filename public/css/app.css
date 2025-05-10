@@ -3,6 +3,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(to bottom right, rgb(106, 220, 245), rgb(188, 147, 253));
     min-height: 100vh;
+    hyphens: auto;
 }
 
 .abou-header {
@@ -46,6 +47,7 @@ a {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    z-index: 2;
 }
 @media screen and (max-width: 800px) {
     .search-form { visibility: hidden; }
@@ -111,13 +113,15 @@ a {
     position: fixed;
     background-color: rgb(255, 255, 255);
     border-right: 1px solid rgb(185, 185, 185);
-    padding-top: 10px;
+    padding-top: 1%;
+    overflow: auto;
+    z-index: 1;
 }
 .mobile-button {
     visibility: hidden;
 }
 @media screen and (max-width: 800px) {
-    .dashboard-sidebar { visibility: hidden; }
+    .dashboard-sidebar { visibility: hidden; padding-top: 8%; }
     .mobile-button { visibility: visible; }
 }
 
@@ -148,6 +152,7 @@ a {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    z-index: 0;
 }
 @media screen and (max-width: 800px) {
     .dashboard-body { padding-left: 10px; padding-right: 10px; }
@@ -173,6 +178,7 @@ a {
     width: 100%;
     height: auto;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 .pagination {
     list-style-type: none;
@@ -234,6 +240,9 @@ a {
         margin-bottom: 10px;
     }
 }
+@media screen and (max-width: 800px) {
+    .substrate { margin: 2% 1%; }
+}
 
 .scroll-container {
     size: auto;
@@ -277,13 +286,16 @@ a {
 }
 
 @media print {
-    .dashboard-sidebar, form, .submit-button {
+    .dashboard-sidebar, form, input, .dashboard-header-nav {
         visibility: hidden;
         display: none;
     }
+    .dashboard-body { padding: 1%; }
+    .substrate { font-size: 0.5rem; }
     .print {
         visibility: visible;
         text-align: center;
+        margin-top: 5%;
     }
     @page {
         margin: 0;
@@ -316,6 +328,9 @@ a {
         background-color: rgb(170, 75, 75);
     }
 }
+@media screen and (max-width: 800px) {
+    .table { font-size: 0.8rem; margin-bottom: 0%; }
+}
 
 .button-form {
     width: auto;
@@ -345,7 +360,7 @@ button:hover {
 .test-container {
     width: auto;
     height: auto;
-    margin: 2% 15%;
+    margin: 2% 8%;
     background-color: white;
     border-radius: 5px;
 
@@ -390,6 +405,19 @@ button:hover {
         }
     }
 }
+
+@media screen and (max-width: 800px) {
+    .test-container { 
+        margin: 1%; 
+        .head { font-size: 1.6rem; }
+        .answer-container {
+            padding: 1%;
+            .asnwer { font-size: 1.4rem; }
+            .submit-button { font-size: 1.2rem; }
+        }
+    }
+}
+
 .center-container {
     width: 100%;
     display: flex;
@@ -402,6 +430,7 @@ button:hover {
     height: auto;
     margin-left: 20%;
     margin-right: 20%;
+    z-index: 0;
 
     input, .form-input {
         width: 100%;
@@ -434,6 +463,7 @@ button:hover {
 .select2 {
     width: 104%;
     font-size: 28pt;
+    z-index: 0;
 }
 .select2:not(:last-child) {
     margin-bottom: 10px;
@@ -447,6 +477,14 @@ button:hover {
 }
 .select2-selection__arrow {
     height: 34px !important;
+}
+@media screen and (max-width: 800px) {
+    .auth-form {
+        margin: 3%;
+        input { padding: 1%; font-size: 1.2rem; }
+        label { font-size: 1.5rem; }
+    }
+    .select2 { font-size: 1.5rem; }
 }
 
 .navigate-button {
@@ -472,6 +510,12 @@ button:hover {
     color: black;
     text-align: center;
 }
+@media screen and (max-width: 800px) {
+    .question-number {
+        padding: 1%;
+    }
+}
+
 .green {
     background-color: #44b118;
     color: #174903;
@@ -495,12 +539,20 @@ button:hover {
     gap: 1%;
 }
 
+.button-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1%;
+}
+@media screen and (max-width: 800px) {
+    .button-group { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
+
 .test-card-container{
     size: 100%;
     padding: 0.5%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(1, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 10px;
     margin-right: 5px;
 }
@@ -520,23 +572,34 @@ button:hover {
     border-radius: 5px;
     margin-top: 3%;
 }
+@media screen and (max-width: 800px) {
+    .test-card-container { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+}
 
 .statistic-card-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     grid-gap: 10px;
 }
 .statistic-card {
     display: block;
     height: auto;
-    margin-left: 4px;
-    margin-right: 8px;
+    width: 100%;
+    margin-left: 1%;
+    margin-right: 1%;
     margin-top: 12px;
     padding: 15px;
     border-radius: 5px;
     background-color: rgb(230, 229, 229);;
     font-size: 2rem;
     color: black;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+@media screen and (max-width: 800px) {
+    .statistic-card { font-size: 1.2rem; }
+    .statistic-card-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 }
 
 .search-form {
@@ -568,13 +631,14 @@ button:hover {
 }
 
 .add-button {
+    size: 50px;
     position: fixed;
     bottom: 0;
     right: 0;
-    background-color: #30498f;
+    background-color: #2E2F45;
     color: white;
-    padding: 10px 14px;
-    border-radius: 50%;
+    padding: 10px;
+    border-radius: 50px;
     margin: 10px;
     font-size: 1.5rem;
 }
@@ -629,6 +693,10 @@ button:hover {
     margin-bottom: 1%;
     border-radius: 10px;
 }
+@media screen and (max-width: 800px) {
+    .avatar-img{ width: 100%; height: 100%; }
+}
+
 .textarea-card {
     width: 100%;
     height: 50px;
@@ -642,7 +710,7 @@ button:hover {
     padding: 0.5%;
 
     .card {
-        width: 100%;        
+        width: 100%;      
         padding: 3%;
         background-color: white;
         border-radius: 8%;
@@ -666,7 +734,7 @@ button:hover {
     }
 }
 @media screen and (max-width: 800px) {
-    .cards-container { gap: 0.3%; margin-top: 1%; }
+    .cards-container { gap: 10px; margin-top: 0%; grid-template-rows: repeat(auto-fill, minmax(10%, 1fr))}
 }
 
 .sort-menu {

@@ -25,7 +25,7 @@
     @endif
     @if($tag->words->count() > 9)
         <div class="substrate">
-            <div class="center-container small-gap">
+            <div class="button-group">
                 <form action="{{ route('wordtest.index', ['tagId' => $tag]) }}" method="POST">
                     @csrf
                     <button type="submit" class="submit-button">

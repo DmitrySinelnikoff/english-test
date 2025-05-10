@@ -41,6 +41,12 @@
             <div>{{ $message }}</div>
         @enderror
 
+        <label for="avatar">Картинка</label>
+        <input id="picture" type="file" name="picture" value="{{ old('picture') }}">
+        @error('picture')
+            <div>{{ $message }}</div>
+        @enderror
+
         <div class="center-container">
             <button type="submit" class="submit-button">Добавить</button>
         </div>

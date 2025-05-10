@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('js/select2/css/select2.min.css') }}">
+    <title>@yield('title')</title>
 </head>
 <body>
     <header class="dashboard-header">
@@ -24,7 +24,7 @@
         <div class="dashboard-header-nav" id="nav-menu">
             @auth
             <div class="dashboard-header-logo" id="accaunt">
-                <a href="{{ route('home') }}" class="white-text">Аккаунт</a>
+                <a href="{{ route('home.show') }}" class="white-text">Аккаунт</a>
             </div>
             <div id="logout">
                 <form action="{{ route('logout') }}" method="POST">
@@ -39,7 +39,7 @@
             </div>
             @endguest
         </div>
-        <div class="dashboard-header-logo mobile-button click" id="mobile-menu">︙</div>
+        <div class="dashboard-header-logo mobile-button click" id="mobile-menu">︙</div> 
     </header>
     <div class="dashboard-sidebar" id="sidebar">
         <a href="{{ route('word.index') }}" class="dashboard-button">Английские слова</a>
@@ -56,6 +56,7 @@
             <a href="{{ route('suggest.index') }}" class="dashboard-button">Предложенные слова</a>
             <a href="{{ route('user.index') }}" class="dashboard-button">Пользователи</a>
         @endif
+        <a href="{{ route('home.show') }}" class="dashboard-button">Аккаунт</a>
     </div>
     <div class="dashboard-body">
         @yield('content')

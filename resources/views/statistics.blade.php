@@ -52,9 +52,9 @@
     <h1>Люди</h1>
     <div class="statistic-card-container">
         <div class="statistic-card">Кол-во людей: {{ $data['peopleCount'] }}</div>
-        <div class="statistic-card">Кол-во людей: {{ $data['usersCount'] }}</div>
+        <div class="statistic-card">Кол-во пользователей: {{ $data['usersCount'] }}</div>
         <div class="statistic-card">Кол-во администраторов: {{ $data['adminCount'] }}</div>
-        <div class="statistic-card">Кол-во людей зарегестированных сегодня: {{ $data['registeredPeopleCount'] }}</div>
+        <div class="statistic-card">Кол-во людей зарегистированных сегодня: {{ $data['registeredPeopleCount'] }}</div>
     </div>
 </div>
 <div class="substrate">

@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="substrate">
-        <form method="POST" class="auth-form" action="{{ route('user.update') }}">
+        <form method="POST" class="auth-form" action="{{ route('user.update') }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <label for="name">Имя</label>
@@ -18,6 +18,16 @@
             <label for="email">Почта</label>
             <input id="email" type="email" name="email" value="{{ $user->email }}">
             @error('email')
+                <div>{{ $message }}</div>
+            @enderror
+
+            <label for="avatar">Аватар</label>
+            <div class="center-container">
+                <label>Текущий:</label>
+                <img src="{{ asset('img/avatars/' . ($user->image_path ?? 'unknown_avatar.jpg')) }}" alt="Аватар не найден" class="avatar-img">
+            </div>
+            <input id="avatar" type="file" name="avatar" value="{{ old('avatar') }}">
+            @error('avatar')
                 <div>{{ $message }}</div>
             @enderror
 
