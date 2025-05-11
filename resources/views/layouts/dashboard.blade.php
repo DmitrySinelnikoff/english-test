@@ -56,7 +56,9 @@
             <a href="{{ route('suggest.index') }}" class="dashboard-button">Предложенные слова</a>
             <a href="{{ route('user.index') }}" class="dashboard-button">Пользователи</a>
         @endif
-        <a href="{{ route('home.show') }}" class="dashboard-button">Аккаунт</a>
+        @auth
+            <a href="{{ route('home.show') }}" class="dashboard-button">Аккаунт</a>
+        @endauth
     </div>
     <div class="dashboard-body">
         @yield('content')

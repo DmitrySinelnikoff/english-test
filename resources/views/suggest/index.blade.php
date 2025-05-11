@@ -56,7 +56,7 @@ function validateDelete() {
     }
 }
 function validateApprove() {
-    if(confirm('Вы хотите одобрить слово?')) {
+    if(confirm('Вы хотите одобрить словоw?')) {
         return true
     } else {
         return false

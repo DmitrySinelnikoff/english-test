@@ -9,7 +9,7 @@
     <div class="center-container">
         <h1>Создание слова</h1>
     </div>
-    <form action="{{ route('word.store') }}" class="auth-form" method="post">
+    <form action="{{ route('word.store') }}" class="auth-form" method="post" enctype="multipart/form-data">
         @csrf
         <label>Английское слово</label>
         <input type="text" name="word" value="{{ old('word') }}" required><br>
@@ -41,7 +41,7 @@
             <div>{{ $message }}</div>
         @enderror
 
-        <label for="avatar">Картинка</label>
+        <label for="picture">Картинка</label>
         <input id="picture" type="file" name="picture" value="{{ old('picture') }}">
         @error('picture')
             <div>{{ $message }}</div>

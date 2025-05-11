@@ -19,7 +19,8 @@ class WordRequest extends FormRequest
             'tag_ids' => 'required|array',
             'tag_ids*' => 'integer|exists:tags,id',
             'translate_id' => 'required',
-            'part_of_speech_id' => 'required'
+            'part_of_speech_id' => 'required',
+            'picture' => 'mimes:png,jpg,jpeg|max:1024'
         ];
     }
 
@@ -33,7 +34,9 @@ class WordRequest extends FormRequest
             'transcription.string' => 'Слово не должно содержать цифр',
             'tag_ids.required' => 'Необходимо заполнить поле "Тег"',
             'translate_id.required' => 'Необходимо заполнить поле "Перевод"',
-            'part_of_speech_id.required' => 'Необходимо заполнить поле "Часть речи"'
+            'part_of_speech_id.required' => 'Необходимо заполнить поле "Часть речи"',
+            'avatar.mimes' => 'Можно загрузить только файлы формата: png, jpg, jpeg!',
+            'avatar.max' => 'Слишком большой файл!'
         ];
     }
 }

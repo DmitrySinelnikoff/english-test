@@ -65,11 +65,17 @@ class WordController extends Controller
                 $englishWord->tag()->attach($tag);
             }
 
+            $fileName = isset($data['picture']) ? time() . mt_rand() . '.' . $data['picture']->extension() : NULL;
+            if($fileName != null) {
+                $data['picture']->move(public_path('img/words'), $fileName);
+            }
+
             $translateWord = $data['translate_id'];
             EnglishRussianWord::create([
                 'english_word_id' => $englishWord->id,
                 'russian_word_id' => $translateWord,
-                'part_of_speech_id' => $data['part_of_speech_id']
+                'part_of_speech_id' => $data['part_of_speech_id'],
+                'image_path' => $fileName
             ]);
 
             DB::commit();
@@ -77,7 +83,7 @@ class WordController extends Controller
             DB::rollBack();
             abort(500);
         }
-        return redirect()->route('home');
+        return redirect()->route('home.show');
     }
 
     public function show(EnglishWord $word)

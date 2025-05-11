@@ -26,7 +26,7 @@ class FeedBackController extends Controller
             'user_id' => Auth::user()->id,
             'text' => $data['message']
         ]);
-        return redirect()->route('home');
+        return redirect()->route('home.show');
     }
 
     public function show(Feedback $feedback)
