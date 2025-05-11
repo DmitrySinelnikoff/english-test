@@ -9,7 +9,7 @@
         @foreach ($tags as $tag)
             <a href="{{ route('tags.show', ['tag' => $tag]) }}">
                 <div class="card">
-                    <img src="{{ asset('img/tags/' . ($tag->image_path ?? 'word-pattern.jpg')) }}" alt="Изображение не найдено">
+                    <img src="{{ asset('img/tags/' . ($tag->image_path ?? 'tag-pattern.jpg')) }}" alt="Изображение не найдено">
                     <div class="text-string">
                         {{ $tag->name }}
                     </div>

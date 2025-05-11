@@ -83,7 +83,7 @@ class WordController extends Controller
             DB::rollBack();
             abort(500);
         }
-        return redirect()->route('home.show');
+        return redirect()->route('word.index');
     }
 
     public function show(EnglishWord $word)
