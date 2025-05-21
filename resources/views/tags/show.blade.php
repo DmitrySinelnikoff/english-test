@@ -26,31 +26,31 @@
     @if($tag->words->count() > 9)
         <div class="substrate">
             <div class="button-group">
-                <form action="{{ route('wordtest.index', ['tagId' => $tag]) }}" method="POST">
+                <form action="{{ route('wordtest.index', ['tagId' => $tag, 'type' => 1]) }}" method="POST">
                     @csrf
                     <button type="submit" class="submit-button">
                         Тест английских слов
                     </button>
                 </form>
-                <form action="{{ route('wordtest.index.russian', ['tagId' => $tag]) }}" method="POST">
+                <form action="{{ route('wordtest.index', ['tagId' => $tag, 'type' => 2]) }}" method="POST">
                     @csrf
                     <button type="submit" class="submit-button">
                         Тест русских слов
                     </button>
                 </form>
-                <form action="{{ route('wordtest.index.transcription', ['tagId' => $tag]) }}" method="POST">
+                <form action="{{ route('wordtest.index', ['tagId' => $tag, 'type' => 3]) }}" method="POST">
                     @csrf
                     <button type="submit" class="submit-button">
                         Тест транскрипций
                     </button>
                 </form>
-                <form action="{{ route('wordtest.index.photo', ['tagId' => $tag]) }}" method="POST">
+                <form action="{{ route('wordtest.index', ['tagId' => $tag, 'type' => 4]) }}" method="POST">
                     @csrf
                     <button type="submit" class="submit-button">
                         Тест фотографий
                     </button>
                 </form>
-                <form action="{{ route('wordtest.index.part', ['tagId' => $tag]) }}" method="POST">
+                <form action="{{ route('wordtest.index', ['tagId' => $tag, 'type' => 5]) }}" method="POST">
                     @csrf
                     <button type="submit" class="submit-button">
                         Тест частей речи

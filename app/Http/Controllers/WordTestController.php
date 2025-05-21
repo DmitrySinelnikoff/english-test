@@ -24,7 +24,7 @@ class WordTestController extends Controller
             
             $test = Test::create([
                 "user_id" => $request->user()->id,
-                "test_type_id" => 1
+                "test_type_id" => $request->type
             ]);
 
             for($questionsIndex = 0; $questionsIndex < 10; $questionsIndex++) {
@@ -33,165 +33,12 @@ class WordTestController extends Controller
                 $question = TestQuestion::create([
                     "result" => 0,
                     "test_id" => $test->id,
-                    "english_russian_word_id" => $word->id
+                    "english_russian_word_id" => EnglishRussianWord::where('english_word_id', $word->id)->inRandomOrder()->first()->id
                 ]);
 
                 for($falseVariantIndex = 0; $falseVariantIndex < 3; $falseVariantIndex++) {
                     $translate = EnglishWord::select('id')->where("word", $word->word)->first()->translate->first();
                     $falseVariants = RussianWord::select('id')->where('word', '<>', $translate)->inRandomOrder()->first();
-                    TestWord::create([
-                        "test_question_id" => $question->id,
-                        "word_id" => $falseVariants->id
-                    ]);
-                }
-            }
-            DB::commit();
-        } catch(\Exception $exeption) {
-            DB::rollBack();
-            abort(500);
-        }
-        
-        return redirect()->route('wordtest.show', ["test" => $test, "index" => 1]);
-    }
-
-    public function indexRussian(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-
-            $tagId = $request->tagId;
-            
-            $test = Test::create([
-                "user_id" => $request->user()->id,
-                "test_type_id" => 2
-            ]);
-
-            for($questionsIndex = 0; $questionsIndex < 10; $questionsIndex++) {
-                $word = Tag::select('id')->where('id', $tagId)->first()->words->random(1)->first()->englishRussian->first();
-                
-                $question = TestQuestion::create([
-                    "result" => 0,
-                    "test_id" => $test->id,
-                    "english_russian_word_id" => $word->id
-                ]);
-
-                for($falseVariantIndex = 0; $falseVariantIndex < 3; $falseVariantIndex++) {
-                    $falseVariants = EnglishRussianWord::select('id')->where('russian_word_id', '<>', $word->russian_word_id)->inRandomOrder()->first();
-                    TestWord::create([
-                        "test_question_id" => $question->id,
-                        "word_id" => $falseVariants->id
-                    ]);
-                }
-            }
-            DB::commit();
-        } catch(\Exception $exeption) {
-            DB::rollBack();
-            abort(500);
-        }
-        
-        return redirect()->route('wordtest.show', ["test" => $test, "index" => 1]);
-    }
-
-    public function indexTranscription(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-
-            $tagId = $request->tagId;
-            
-            $test = Test::create([
-                "user_id" => $request->user()->id,
-                "test_type_id" => 3
-            ]);
-
-            for($questionsIndex = 0; $questionsIndex < 10; $questionsIndex++) {
-                $word = Tag::select('id')->where('id', $tagId)->first()->words->random(1)->first();
-                
-                $question = TestQuestion::create([
-                    "result" => 0,
-                    "test_id" => $test->id,
-                    "english_russian_word_id" => $word->id
-                ]);
-
-                for($falseVariantIndex = 0; $falseVariantIndex < 3; $falseVariantIndex++) {
-                    $translate = EnglishWord::select('id')->where("word", $word->word)->first()->translate->first();
-                    $falseVariants = RussianWord::select('id')->where('word', '<>', $translate)->inRandomOrder()->first();
-                    TestWord::create([
-                        "test_question_id" => $question->id,
-                        "word_id" => $falseVariants->id
-                    ]);
-                }
-            }
-            DB::commit();
-        } catch(\Exception $exeption) {
-            DB::rollBack();
-            abort(500);
-        }
-        
-        return redirect()->route('wordtest.show', ["test" => $test, "index" => 1]);
-    }
-
-    public function indexPhoto(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-
-            $tagId = $request->tagId;
-            
-            $test = Test::create([
-                "user_id" => $request->user()->id,
-                "test_type_id" => 4
-            ]);
-
-            for($questionsIndex = 0; $questionsIndex < 10; $questionsIndex++) {
-                $word = EnglishRussianWord::all()->where('image_path', '<>', NULL)->random(1)->first();
-                
-                $question = TestQuestion::create([
-                    "result" => 0,
-                    "test_id" => $test->id,
-                    "english_russian_word_id" => $word->id
-                ]);
-
-                for($falseVariantIndex = 0; $falseVariantIndex < 3; $falseVariantIndex++) {
-                    $falseVariants = EnglishRussianWord::select('id')->where('russian_word_id', '<>', $word->russian_word_id)->inRandomOrder()->first();
-                    TestWord::create([
-                        "test_question_id" => $question->id,
-                        "word_id" => $falseVariants->id
-                    ]);
-                }
-            }
-            DB::commit();
-        } catch(\Exception $exeption) {
-            DB::rollBack();
-            abort(500);
-        }
-        
-        return redirect()->route('wordtest.show', ["test" => $test, "index" => 1]);
-    }
-
-    public function indexPart(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-
-            $tagId = $request->tagId;
-            
-            $test = Test::create([
-                "user_id" => $request->user()->id,
-                "test_type_id" => 5
-            ]);
-
-            for($questionsIndex = 0; $questionsIndex < 10; $questionsIndex++) {
-                $word = EnglishRussianWord::all()->where('image_path', '<>', NULL)->random(1)->first();
-                
-                $question = TestQuestion::create([
-                    "result" => 0,
-                    "test_id" => $test->id,
-                    "english_russian_word_id" => $word->id
-                ]);
-
-                for($falseVariantIndex = 0; $falseVariantIndex < 3; $falseVariantIndex++) {
-                    $falseVariants = EnglishRussianWord::select('id')->where('russian_word_id', '<>', $word->russian_word_id)->inRandomOrder()->first();
                     TestWord::create([
                         "test_question_id" => $question->id,
                         "word_id" => $falseVariants->id
