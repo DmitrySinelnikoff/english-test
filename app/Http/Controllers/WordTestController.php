@@ -87,8 +87,12 @@ class WordTestController extends Controller
             $variants[$trueVariantPosition] = $partOfSpeech ;
         }
 
+        if($test->test_type_id == 5) {
+            $partsOfSpeech = PartOfSpeech::where('id', '<>', $question->wordCombination->part_of_speech_id)->get()->random(3);
+        }
+
         $variantsIndex = 0;
-        foreach($falseVariant as $value) {
+        foreach($falseVariant as $key => $value) {
             if($variantsIndex == $trueVariantPosition)
                 $variantsIndex++;
 
@@ -97,7 +101,7 @@ class WordTestController extends Controller
             } else if($test->test_type_id == 2 || $test->test_type_id == 4) {
                 $variants[$variantsIndex] = EnglishRussianWord::where('id', $value->word_id)->first()->englishWord->word;
             } else if($test->test_type_id == 5) {
-                $variants[$variantsIndex] = PartOfSpeech::all()->where('id', '<>', $question->wordCombination->part_of_speech_id)->random(1)->first()->name;
+                $variants[$variantsIndex] = $partsOfSpeech[$key]->name;
             }
             $variantsIndex++;
         }
