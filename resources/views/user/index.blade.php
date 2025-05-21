@@ -11,7 +11,8 @@
                 <div class="card">
                     <img
                         src="{{ asset('img/avatars/' . ($user->image_path ?? 'unknown_avatar.jpg')) }}"
-                        alt="Аватар не найден" class="avatar-img"
+                        alt="Аватар не найден"
+                        class="avatar-img"
                     >
                     <div class="text-string">
                         {{ \Illuminate\Support\Str::limit($user->name, 10) }}

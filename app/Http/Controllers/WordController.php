@@ -125,46 +125,57 @@ class WordController extends Controller
         {
             $selectedTagsId->push($tag->id);
         }
+
         $selectWord = $word->translate;
         $selectedWordsId = collect();
         foreach($selectWord as $word)
         {
             $selectedWordsId->push($word->id);
         }
+
+        $selectSpeech = $word->englishRussian;
+        $selectSpeechId = collect();
+        foreach($selectSpeech as $speech)
+        {
+            $selectSpeechId->push($speech->id);
+        }
+
         $tags = Tag::all();
         $russianWords = RussianWord::all();
-        return view('word.edit', compact('word', 'tags', 'russianWords', 'selectedTagsId', 'selectedWordsId'));
+        $partsOfSpeech = PartOfSpeech::all();
+        $word = EnglishWord::where('id', $word->id)->first();
+        return view('word.edit', compact('word', 'tags', 'russianWords', 'partsOfSpeech', 'selectedTagsId', 'selectedWordsId', 'selectSpeechId'));
     }
 
     public function update(WordRequest $request, EnglishWord $word)
     {
-        // try {
-        //     DB::beginTransaction();
-        //     $data = $request->validated();
-        //     $word->update(['word'=>$data['word'], 'transcription'=>$data['transcription']]);
+        try {
+            DB::beginTransaction();
+            $data = $request->validated();
+            $word->update(['word'=>$data['word'], 'transcription'=>$data['transcription']]);
 
-        //     foreach($data['tag_ids'] as $tag)
-        //     {
-        //         if(!is_numeric($tag)) {
-        //             $tagId = Tag::update(['name'=>$tag]);
-        //             $tag = $tagId->id;
-        //         }
-        //         $englishWord->tag()->attach($tag);
-        //     }
+            foreach($data['tag_ids'] as $tag)
+            {
+                if(!is_numeric($tag)) {
+                    $tagId = Tag::update(['name'=>$tag]);
+                    $tag = $tagId->id;
+                }
+                $englishWord->tag()->attach($tag);
+            }
 
-        //     $translateWord = $data['translate_id'];
-        //     if(!is_numeric($translateWord)) {
-        //         $russiamWordId = RussianWord::firstOrCreate(['word'=>$translateWord]);
-        //         $translateWord = $russiamWordId->id;
-        //     }
-        //     $englishWord->translate()->attach($translateWord);
+            $translateWord = $data['translate_id'];
+            if(!is_numeric($translateWord)) {
+                $russiamWordId = RussianWord::firstOrCreate(['word'=>$translateWord]);
+                $translateWord = $russiamWordId->id;
+            }
+            $englishWord->translate()->attach($translateWord);
 
-        //     DB::commit();
-        // } catch(\Exception $exeption) {
-        //     DB::rollBack();
-        //     abort(500);
-        // }
-        // return redirect()->route('main.index');
+            DB::commit();
+        } catch(\Exception $exeption) {
+            DB::rollBack();
+            abort(500);
+        }
+        return redirect()->route('main.index');
     }
 
     public function destroy(EnglishWord $word)

@@ -481,7 +481,7 @@ button:hover {
 @media screen and (max-width: 800px) {
     .auth-form {
         margin: 3%;
-        input { padding: 1%; font-size: 1.2rem; }
+        input, .form-input { padding: 1%; font-size: 1.2rem; }
         label { font-size: 1.5rem; }
     }
     .select2 { font-size: 1.5rem; }
@@ -696,6 +696,12 @@ button:hover {
 @media screen and (max-width: 800px) {
     .avatar-img{ width: 100%; height: 100%; }
 }
+.avatar-img-edit {
+    height: 20%;
+    width: 20%;
+    margin-bottom: 1%;
+    border-radius: 10px;
+}
 
 .textarea-card {
     width: 100%;
@@ -754,4 +760,11 @@ button:hover {
 
 .text {
     font-size: 1.5rem;
+}
+
+.mobile-element {
+    visibility: hidden;
+}
+@media screen and (max-width: 800px) {
+    .mobile-element { visibility: inherit; }
 }

@@ -57,7 +57,14 @@
             <a href="{{ route('user.index') }}" class="dashboard-button">Пользователи</a>
         @endif
         @auth
-            <a href="{{ route('home.show') }}" class="dashboard-button">Аккаунт</a>
+            <a href="{{ route('home.show') }}" class="dashboard-button mobile-element">Аккаунт</a>
+            <div id="logout" class="center-container mobile-element">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <input type="submit" value="Выйти" class="submit-button">
+                </form>
+            </div>
+            <br><br><br>
         @endauth
     </div>
     <div class="dashboard-body">

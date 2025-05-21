@@ -24,7 +24,7 @@
             <label for="avatar">Аватар</label>
             <div class="center-container">
                 <label>Текущий:</label>
-                <img src="{{ asset('img/avatars/' . ($user->image_path ?? 'unknown_avatar.jpg')) }}" alt="Аватар не найден" class="avatar-img">
+                <img src="{{ asset('img/avatars/' . ($user->image_path ?? 'unknown_avatar.jpg')) }}" alt="Аватар не найден" class="avatar-img-edit" width="100px" height="100px">
             </div>
             <input id="avatar" type="file" name="avatar" value="{{ old('avatar') }}">
             @error('avatar')

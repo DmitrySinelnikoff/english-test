@@ -21,7 +21,17 @@ class TagController extends Controller
     public function store(TagRequest $request)
     {
         $data = $request->validated();
-        Tag::firstOrCreate($data);
+
+        $fileName = isset($data['image']) ? time() . mt_rand() . '.' . $data['image']->extension() : NULL;
+        if($fileName != null) {
+            $data['image']->move(public_path('img/tags'), $fileName);
+        }
+
+        Tag::firstOrCreate([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'image_path' => $fileName,
+        ]);
         return redirect()->route('tags.index');
     }
 
@@ -47,7 +57,17 @@ class TagController extends Controller
     public function update(TagRequest $request, Tag $tag)
     {
         $data = $request->validated();
-        $tag->update($data);
+
+        $fileName = isset($data['image']) ? time() . mt_rand() . '.' . $data['image']->extension() : NULL;
+        if($fileName != null) {
+            $data['image']->move(public_path('img/tags'), $fileName);
+        }
+
+        $tag->update([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'image_path' => $fileName,
+        ]);
         return redirect()->route('tags.show', ['tag' => $tag]);
     }
 

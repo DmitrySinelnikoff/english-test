@@ -24,7 +24,9 @@ class TagRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'mimes:png,jpg,jpeg|max:1024'
         ];
     }
 
@@ -32,6 +34,9 @@ class TagRequest extends FormRequest
     {
         return [
             'name.required' => 'Это поле необходимо заполнить',
+            'description.required' => 'Это поле необходимо заполнить',
+            'image.mimes' => 'Можно загрузить только файлы формата: png, jpg, jpeg!',
+            'image.max' => 'Слишком большой файл!'
         ];
     }
 }

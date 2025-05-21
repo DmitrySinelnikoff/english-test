@@ -37,13 +37,21 @@
             @endforeach
         </select>
         <label>Часть речи</label>
-        <select name="part_of_speech_id" class="select2" id="part-of-speech-select" required></select><br>
+        <select name="part_of_speech_id" class="select2" id="part-of-speech-select" required>
+            @foreach ($partsOfSpeech as $partOfSpeech)
+                <option value="{{ $partOfSpeech->id }}" {{ $selectSpeechId->contains($partOfSpeech->id) ? 'selected' : '' }}>{{ $partOfSpeech->name }}</option>
+            @endforeach
+        </select><br>
         @error('translate_id')
             <div>{{ $message }}</div>
         @enderror
-        <label for="avatar">Картинка</label>
-        <input id="picture" type="file" name="picture" value="{{ old('picture') }}">
-        @error('picture')
+        <label for="image">Изображение</label>
+        <div class="center-container">
+            <label>Текущее:</label>
+            <img src="{{ asset('img/words/' . ($word->image_path ?? 'word-pattern.jpg')) }}" alt="Аватар не найден" class="avatar-img-edit" width="100px" height="100px">
+        </div>  
+        <input id="image" type="file" name="image" value="{{ old('image') }}">
+        @error('image')
             <div>{{ $message }}</div>
         @enderror
         <div class="center-container">
