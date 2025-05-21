@@ -27,21 +27,22 @@ class WordTestController extends Controller
                 "test_type_id" => $request->type
             ]);
 
+            $word = Tag::select('id')->where('id', $tagId)->first()->words->random(10);
             for($questionsIndex = 0; $questionsIndex < 10; $questionsIndex++) {
-                $word = Tag::select('id')->where('id', $tagId)->first()->words->random(1)->first();
+                $englishRussianWordId = EnglishRussianWord::where('english_word_id', $word[$questionsIndex]->id)->first();
                 
                 $question = TestQuestion::create([
                     "result" => 0,
                     "test_id" => $test->id,
-                    "english_russian_word_id" => EnglishRussianWord::where('english_word_id', $word->id)->inRandomOrder()->first()->id
+                    "english_russian_word_id" => $englishRussianWordId->id
                 ]);
 
+                $translate = RussianWord::where('id', $englishRussianWordId->russian_word_id)->first();
+                $falseVariants = EnglishRussianWord::select('id')->where('russian_word_id', '<>', $translate->id)->get()->random(3);
                 for($falseVariantIndex = 0; $falseVariantIndex < 3; $falseVariantIndex++) {
-                    $translate = EnglishWord::select('id')->where("word", $word->word)->first()->translate->first();
-                    $falseVariants = RussianWord::select('id')->where('word', '<>', $translate)->inRandomOrder()->first();
                     TestWord::create([
                         "test_question_id" => $question->id,
-                        "word_id" => $falseVariants->id
+                        "word_id" => $falseVariants[$falseVariantIndex]->id
                     ]);
                 }
             }
@@ -78,9 +79,9 @@ class WordTestController extends Controller
         $variants = array(0,0,0,0);
         $trueVariantPosition = rand(0, 3);
 
-        if($test->test_type_id == 1) {
+        if($test->test_type_id == 1 || $test->test_type_id == 3) {
             $variants[$trueVariantPosition] = $russianWord;
-        } else if($test->test_type_id == 2 || $test->test_type_id == 3 || $test->test_type_id == 4) {
+        } else if($test->test_type_id == 2 || $test->test_type_id == 4) {
             $variants[$trueVariantPosition] = $englishWord;
         } else if($test->test_type_id == 5) {
             $variants[$trueVariantPosition] = $partOfSpeech ;
@@ -92,7 +93,7 @@ class WordTestController extends Controller
                 $variantsIndex++;
 
             if($test->test_type_id == 1 || $test->test_type_id == 3) {
-                $variants[$variantsIndex] = EnglishRussianWord::where('id', $value->word_id)->first()->russianWord->word;
+                $variants[$variantsIndex] = RussianWord::where('id', $value->word_id)->first()->word;
             } else if($test->test_type_id == 2 || $test->test_type_id == 4) {
                 $variants[$variantsIndex] = EnglishRussianWord::where('id', $value->word_id)->first()->englishWord->word;
             } else if($test->test_type_id == 5) {
