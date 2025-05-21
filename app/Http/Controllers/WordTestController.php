@@ -93,7 +93,7 @@ class WordTestController extends Controller
                 $variantsIndex++;
 
             if($test->test_type_id == 1 || $test->test_type_id == 3) {
-                $variants[$variantsIndex] = RussianWord::where('id', $value->word_id)->first()->word;
+                $variants[$variantsIndex] = EnglishRussianWord::where('id', $value->word_id)->first()->russianWord->word;
             } else if($test->test_type_id == 2 || $test->test_type_id == 4) {
                 $variants[$variantsIndex] = EnglishRussianWord::where('id', $value->word_id)->first()->englishWord->word;
             } else if($test->test_type_id == 5) {
