@@ -119,6 +119,7 @@ class WordController extends Controller
 
     public function edit(EnglishWord $word)
     {
+        $wordID = $word->id;
         $selectTags = $word->tag;
         $selectedTagsId = collect();
         foreach($selectTags as $tag)
@@ -143,7 +144,7 @@ class WordController extends Controller
         $tags = Tag::all();
         $russianWords = RussianWord::all();
         $partsOfSpeech = PartOfSpeech::all();
-        $word = EnglishWord::where('id', $word->id)->first();
+        $word = EnglishWord::where('id', $wordID)->first();
         return view('word.edit', compact('word', 'tags', 'russianWords', 'partsOfSpeech', 'selectedTagsId', 'selectedWordsId', 'selectSpeechId'));
     }
 
