@@ -23,7 +23,7 @@
             <div>{{ $message }}</div>
         @enderror
 
-        <label>Теги</label>
+        <label>Категории</label>
         <select name="tag_ids[]" class="select2" id="tags-select" multiple required></select><br>
         @error('tag_ids')
             <div>{{ $message }}</div>

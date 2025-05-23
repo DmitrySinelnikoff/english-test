@@ -1,75 +1,40 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Создание слова
+    Добавление перевода
 @endsection
 
 @section('content')
 <div class="substrate">
     <div class="center-container">
-        <h1>Изменение слова</h1>
+        <h1>Добавление перевода</h1>
     </div>
-    <form action="{{ route('word.update', $word) }}" method="post" class="auth-form" enctype="multipart/form-data">
+    <form action="{{ route('word.store.translate') }}" class="auth-form" method="post" enctype="multipart/form-data">
         @csrf
-        @method('PATCH')
-        <label for="word">Слово</label>
-        <input type="text" name="word" id="word" value="{{ $word->word }}">
-        @error('word')
-            <div>{{ $message }}</div>
-        @enderror
-        <label for="transcription">Транскрипция</label>
-        <input type="text" name="transcription" id="transcription" value="{{ $word->transcription }}">
-        @error('transcription')
-            <div>{{ $message }}</div>
-        @enderror
-        <label>Категории</label>
-        <select name="tag_ids[]" class="select2" id="tags-select" multiple>
-            @foreach ($tags as $tag)
-                @if($tag->words->count() > 0)
-                    <option value="{{ $tag->id }}" {{ $selectedTagsId->contains($tag->id) ? 'selected' : '' }}>{{ $tag->name }}</option>
-                @endif
-            @endforeach
-        </select>
+        <label>Перевод</label>
+        <select name="translate_id" class="select2" id="translate-select" required></select><br>
         @error('translate_id')
             <div>{{ $message }}</div>
         @enderror
+        <label>Часть речи</label>
+        <select name="part_of_speech_id" class="select2" id="part-of-speech-select" required></select><br>
+        @error('translate_id')
+            <div>{{ $message }}</div>
+        @enderror
+        <label for="picture">Картинка</label>
+        <input id="picture" type="file" name="picture" value="{{ old('picture') }}">
+        @error('picture')
+            <div>{{ $message }}</div>
+        @enderror
+        <input type="hidden" name="english_id" value="{{ $word->id }}">
         <div class="center-container">
-            <button type="submit" class="submit-button">Изменить</button>   
+            <button type="submit" class="submit-button">Добавить</button>
         </div>
     </form>
 </div>
 @endsection
 
 @section('script')
-$('#tags-select').select2({
-    ajax: {
-        url: `${location.protocol}//${location.host}/api/tags`,
-        dataType: 'json', // Ожидаемый формат данных
-        delay: 250, // Задержка перед отправкой запроса (в миллисекундах)
-        data: function (params) {
-            
-            return {
-                q: params.term || '', // Поисковый запрос (если есть)
-                page: params.page || 1 // Номер страницы (если используется пагинация)
-            };
-        },
-        processResults: function (data, params) {
-            return {
-                results: data.map(item => ({
-                    id: item.id,
-                    text: item.name
-                })),
-                pagination: {
-                    more: false
-                }
-            };
-        },
-        cache: true // Кэширование результатов
-    },
-    placeholder: 'Выберите категорию...', // Текст-заполнитель
-    minimumInputLength: 0, // Минимальное количество символов для поиска
-});
-
 $('#translate-select').select2({
     ajax: {
         url: `${location.protocol}//${location.host}/api/russian/words`,

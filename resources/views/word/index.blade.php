@@ -31,7 +31,7 @@
                             {{ \Illuminate\Support\Str::limit($word->word, 25) }}
                         </div>
                         <div class="text-string">
-                            {{ \Illuminate\Support\Str::limit($word->translate->first()->word, 25) }}
+                            {{ \Illuminate\Support\Str::limit($word->translate->first()->word ?? '', 25) }}
                         </div>
                     </div>
                 </a>

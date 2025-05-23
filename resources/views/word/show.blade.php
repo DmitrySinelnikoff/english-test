@@ -20,12 +20,16 @@
                         Удалить
                     </button>
                 </form>
-                <form action="{{ route('word.edit', $word) }}" method="get" class="button-form">
-                    @csrf
-                    <button type="submit" class="submit-button">
-                       Изменить 
+                <a href="{{ route('word.edit', $word) }}" method="get" class="button-form">
+                    <button type="submit" class="submit-button">    
+                        Изменить
                     </button>
-                </form>
+                </a>
+                <a href="{{ route('word.add.translate', $word) }}" method="get" class="button-form">
+                    <button type="submit" class="submit-button">    
+                        Добавить перевод
+                    </button>
+                </a>    
             </div>
         </div>
     @endif
@@ -35,10 +39,21 @@
     <div class="substrate">
         <h1>Перевод</h1>
         <div class="scroll-container">
-            @foreach ($word->translate as $key => $translate)
-                <a href="{{ route('russian.word.show', $translate) }}" class="card-gray">
-                    <div>{{ $translate->word }}</div>
+            @foreach ($word->englishRussian as $key => $translate)
+                <a href="{{ route('russian.word.show', $translate->russianWord->first()) }}" class="card-gray">
+                    <div>{{ $translate->russianWord->word }}</div>
                     <div>{{ $partOfSpeech[$key] }}</div>
+                    @if(auth()->check() && auth()->user()->user_role_id == 2)
+                        <div class="center-container">
+                            <form action="{{ route('word.delete.translate', $translate) }}" method="post" class="button-form" onsubmit="return validateDeleteTranslate()">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="submit-button">
+                                    Удалить
+                                </button>
+                            </form>
+                        </div>
+                    @endif
                 </a>
             @endforeach
         </div>
@@ -106,6 +121,14 @@
 
         function validateDelete() {
             if(confirm('Вы хотите удалить это слово?')) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        function validateDeleteTranslate() {
+            if(confirm('Вы хотите удалить этот перевод?')) {
                 return true
             } else {
                 return false

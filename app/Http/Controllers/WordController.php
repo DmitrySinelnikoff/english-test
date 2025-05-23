@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\LetterEnum;
+use App\Http\Requests\AddTranslateRequest;
+use App\Http\Requests\UpdateWordRequest;
 use App\Http\Requests\WordRequest;
 use App\Models\EnglishRussianWord;
 use App\Models\PartOfSpeech;
@@ -148,40 +150,76 @@ class WordController extends Controller
         return view('word.edit', compact('word', 'tags', 'russianWords', 'partsOfSpeech', 'selectedTagsId', 'selectedWordsId', 'selectSpeechId'));
     }
 
-    public function update(WordRequest $request, EnglishWord $word)
+    public function update(UpdateWordRequest $request, EnglishWord $word)
     {
-        try {
-            DB::beginTransaction();
-            $data = $request->validated();
-            $word->update(['word'=>$data['word'], 'transcription'=>$data['transcription']]);
+        $data = $request->validated();
+        $selectedTags = $data['tag_ids'];
+        $currentTags = $word->tag->pluck('id')->toArray();
 
-            foreach($data['tag_ids'] as $tag)
-            {
-                if(!is_numeric($tag)) {
-                    $tagId = Tag::update(['name'=>$tag]);
-                    $tag = $tagId->id;
-                }
-                $englishWord->tag()->attach($tag);
-            }
+        $word->update([
+            'word' => $data['word'],
+            'transcription' => $data['word'],
+        ]);
 
-            $translateWord = $data['translate_id'];
-            if(!is_numeric($translateWord)) {
-                $russiamWordId = RussianWord::firstOrCreate(['word'=>$translateWord]);
-                $translateWord = $russiamWordId->id;
-            }
-            $englishWord->translate()->attach($translateWord);
-
-            DB::commit();
-        } catch(\Exception $exeption) {
-            DB::rollBack();
-            abort(500);
+        $attach = array_diff($selectedTags, $currentTags);
+        $detach = array_diff($currentTags, $selectedTags);
+        if($attach != null){
+            $word->tag()->attach($attach);
         }
-        return redirect()->route('main.index');
+        if($detach != null){
+            $word->tag()->detach($detach);
+        }
+
+        return redirect()->route('word.show', compact('word'));
     }
 
     public function destroy(EnglishWord $word)
     {
         $word->delete();
         return redirect()->route('word.index');
+    }
+
+    public function addTranslate(EnglishWord $word)
+    {
+        return view('word.add-translate', compact('word'));
+    }
+
+    public function storeTranslate(AddTranslateRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $data = $request->validated();
+
+            $fileName = isset($data['picture']) ? time() . mt_rand() . '.' . $data['picture']->extension() : NULL;
+            if($fileName != null) {
+                $data['picture']->move(public_path('img/words'), $fileName);
+            }
+
+            $translateWord = $data['translate_id'];
+            EnglishRussianWord::create([
+                'english_word_id' => $data['english_id'],
+                'russian_word_id' => $data['translate_id'],
+                'part_of_speech_id' => $data['part_of_speech_id'],
+                'image_path' => $fileName
+            ]);
+
+            DB::commit();
+        } catch(\Exception $exeption) {
+            DB::rollBack();
+            abort(500);
+        }
+        $word = EnglishWord::where('id', $data['english_id'])->first();
+        return redirect()->route('word.show', compact('word'));
+    }
+
+    public function destroyTranslate(Request $request, EnglishRussianWord $word)
+    {
+        try {
+            $word->delete();
+        } catch (\Exception $e) {
+            \Log::error('Ошибка удаления: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Не удалось удалить запись']);
+        }
+        return redirect($request->header('referer'));
     }
 }

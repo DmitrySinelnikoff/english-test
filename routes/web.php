@@ -31,9 +31,12 @@ Route::prefix('words')->name('word.')->group(function() {
     Route::get('/create', [App\Http\Controllers\WordController::class, 'create'])->name('create')->middleware('auth', 'admin');
     Route::post('/store', [App\Http\Controllers\WordController::class, 'store'])->name('store')->middleware('auth', 'admin');
     Route::get('/{word}', [App\Http\Controllers\WordController::class, 'show'])->name('show');
-    Route::get('/edit/{word}', [App\Http\Controllers\WordController::class, 'edit'])->name('edit');
-    Route::patch('/{word}', [App\Http\Controllers\WordController::class, 'update'])->name('update');
-    Route::delete('/{word}', [App\Http\Controllers\WordController::class, 'destroy'])->name('delete');
+    Route::get('/edit/{word}', [App\Http\Controllers\WordController::class, 'edit'])->name('edit')->middleware('auth', 'admin');;
+    Route::patch('/{word}', [App\Http\Controllers\WordController::class, 'update'])->name('update')->middleware('auth', 'admin');;
+    Route::delete('/{word}', [App\Http\Controllers\WordController::class, 'destroy'])->name('delete')->middleware('auth', 'admin');;
+    Route::get('/{word}/add/translate', [App\Http\Controllers\WordController::class, 'addTranslate'])->name('add.translate')->middleware('auth', 'admin');
+    Route::post('/store/translate', [App\Http\Controllers\WordController::class, 'storeTranslate'])->name('store.translate')->middleware('auth', 'admin');
+    Route::delete('/translate/{word}', [App\Http\Controllers\WordController::class, 'destroyTranslate'])->name('delete.translate')->middleware('auth', 'admin');;
 });
 
 Route::prefix('/russian')->name('russian.')->group(function() {

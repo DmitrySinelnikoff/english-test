@@ -66,7 +66,7 @@ class TagController extends Controller
         $tag->update([
             'name' => $data['name'],
             'description' => $data['description'],
-            'image_path' => $fileName,
+            'image_path' => $fileName == NULL ? $tag->image_path : $fileName,
         ]);
         return redirect()->route('tags.show', ['tag' => $tag]);
     }

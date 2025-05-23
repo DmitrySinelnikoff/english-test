@@ -17,12 +17,16 @@
                     <th>Ответ</th>
                 </tr>
                 @foreach ($results as $key => $result)
-                <tr>
-                    <td>{{ $key + 1}}</td>
-                    <td>{{ $result->wordCombination->englishWord->word }}</td>
-                    <td>{{ $result->wordCombination->russianWord->word }}</td>
-                    <td class="{{ $result->result == 2 ? 'asnwer-right' : 'asnwer-wrong' }}">{{ $result->result == 2 ? 'Правильно' : 'Неправильно' }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ $key + 1}}</td>
+                        <td>
+                            <a href="{{ route('word.show', ['word' => $result->wordCombination->englishWord]) }}">
+                                {{ $result->wordCombination->englishWord->word }}
+                            </a>
+                        </td>
+                        <td>{{ $result->wordCombination->russianWord->word }}</td>
+                        <td class="{{ $result->result == 2 ? 'asnwer-right' : 'asnwer-wrong' }}">{{ $result->result == 2 ? 'Правильно' : 'Неправильно' }}</td>
+                    </tr>
                 @endforeach
             </table>
             <div class="center-container">

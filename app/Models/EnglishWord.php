@@ -20,6 +20,10 @@ class EnglishWord extends Model
         return $this->belongsToMany(Tag::class, 'tag_words');
     }
 
+    public function tagType() {
+        return $this->hasMany(Tag::class);
+    }
+
     public function wordView()
     {
         return $this->hasMany(WordView::class);
